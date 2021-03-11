@@ -1,0 +1,138 @@
+import 'package:anime_list_app/screens/anime_draggable_page_screen.dart';
+import 'package:anime_list_app/screens/anime_page_screen.dart';
+import 'package:flutter/material.dart';
+
+import 'models/anime.dart';
+import 'models/data.dart';
+
+class AnimeListWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    List<Anime> animes = Data().getAnime();
+
+    return  MaterialApp(
+      title: "My Anime App",
+      color: Colors.black,
+      home: Scaffold(appBar: AppBar(
+        title: Text("Neko List App :3"),
+        centerTitle: true,
+        backgroundColor: Colors.black87, // status bar color
+        brightness: Brightness.light, // status
+        //backgroundColor: Colors.black87,
+      ),
+        body: ListView.builder(
+          physics: BouncingScrollPhysics(),
+          itemCount: animes.length,
+          itemBuilder: (_, index) => Card(
+              elevation: 0,
+              //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              child: InkWell(
+                onTap: () => Navigator.pushNamed(context, '/anime/${animes[index].malId}', arguments: animes[index]),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Expanded(
+                      flex: 3,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: Image.network(
+                          animes[index].mainPicture,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 7, // 60%
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                                child: Text(
+                                  animes[index].alternativeTitles['ua'],
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: new TextStyle(
+                                    fontSize: 14.0,
+                                    fontFamily: 'Roboto',
+                                    color: new Color(0xFF212121),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )
+                            ),
+                            SizedBox(
+                              height: 2,
+                            ),
+                            Container(
+                                child: Text(
+                                  animes[index].alternativeTitles['en'],
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: new TextStyle(
+                                    fontSize: 11.0,
+                                    fontFamily: 'Roboto',
+                                    color: new Color(0xFF7C7C7C),
+                                  ),
+                                )
+                            ),
+                            SizedBox(
+                              height: 4,
+                            ),
+                            Container(
+                                child: Text(
+                                  animes[index].synopsis,
+                                  maxLines: 7,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: new TextStyle(
+                                    fontSize: 11.0,
+                                    fontFamily: 'Roboto',
+                                    color: new Color(0xFF212121),
+                                  ),
+                                )
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+    );
+  }
+}
+
+class AnimePageWidget extends StatelessWidget{
+  String _id;
+  AnimePageWidget({String id}):_id = id;
+
+  @override
+  Widget build(BuildContext context) {
+    final Anime anime = ModalRoute.of(context).settings.arguments;
+    return MaterialApp(
+      title: "Anime info",
+      home: AnimePageScreen(anime: anime),
+    );
+  }
+
+}
+
+class AnimeDraggableScrollable extends StatelessWidget{
+  String _id;
+  AnimeDraggableScrollable({String id}):_id = id;
+
+  @override
+  Widget build(BuildContext context) {
+    final Anime anime = ModalRoute.of(context).settings.arguments;
+    return MaterialApp(
+        //color: Colors.grey,
+        title: "Anime info",
+        home: AnimeDraggableScrollableScreen(anime: anime)
+    );
+  }
+  Widget cardsWidget(itemIndex)=> Container(
+
+  );
+}
