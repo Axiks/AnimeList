@@ -1,3 +1,4 @@
+import 'package:anime_list_app/nav.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'home.dart';
@@ -6,8 +7,9 @@ void main() {
   runApp(MaterialApp(
     initialRoute: '/',
     routes: {
-      '/':(BuildContext context) => AnimeListWidget(),
+      '/':(BuildContext context) => Nav(),
       '/anime':(BuildContext context) => AnimePageWidget(),
+      '/list':(BuildContext context) => AnimeListWidget(),
     },
     onUnknownRoute: (routeSetting) => _errorRoute(),
     onGenerateRoute: (routeSetting){

@@ -9,16 +9,15 @@ class AnimeListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Anime> animes = Data().getAnime();
-
-    return  MaterialApp(
-      title: "My Anime App",
-      color: Colors.black,
-      home: Scaffold(appBar: AppBar(
+    return  Scaffold(
+      appBar: AppBar(
         title: Text("Neko List App :3"),
         centerTitle: true,
         backgroundColor: Colors.black87, // status bar color
         brightness: Brightness.light, // status
-        //backgroundColor: Colors.black87,
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.search), onPressed: (){})
+        ],
       ),
         body: ListView.builder(
           physics: BouncingScrollPhysics(),
@@ -81,10 +80,10 @@ class AnimeListWidget extends StatelessWidget {
                             Container(
                                 child: Text(
                                   animes[index].synopsis,
-                                  maxLines: 7,
+                                  maxLines: 4,
                                   overflow: TextOverflow.ellipsis,
                                   style: new TextStyle(
-                                    fontSize: 11.0,
+                                    fontSize: 13.0,
                                     fontFamily: 'Roboto',
                                     color: new Color(0xFF212121),
                                   ),
@@ -99,8 +98,7 @@ class AnimeListWidget extends StatelessWidget {
               ),
             ),
           ),
-        ),
-    );
+        );
   }
 }
 
@@ -135,4 +133,33 @@ class AnimeDraggableScrollable extends StatelessWidget{
   Widget cardsWidget(itemIndex)=> Container(
 
   );
+}
+
+class DataSearch extends SearchDelegate<String>{
+
+  
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    // TODO: implement buildActions
+    throw UnimplementedError();
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    // TODO: implement buildLeading
+    throw UnimplementedError();
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    // TODO: implement buildResults
+    throw UnimplementedError();
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    // TODO: implement buildSuggestions
+    throw UnimplementedError();
+  }
+  
 }

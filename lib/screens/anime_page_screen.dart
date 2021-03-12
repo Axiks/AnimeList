@@ -1,4 +1,5 @@
 import 'package:anime_list_app/models/anime.dart';
+import 'package:expand_widget/expand_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -43,7 +44,7 @@ class AnimePageScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: HeadWidget(anime: anime),
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 0),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TagWidget(anime: anime),
@@ -179,24 +180,25 @@ class DescriptionWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text("Опис",
-            style: TextStyle(
-                fontSize: 21,
-                fontWeight: FontWeight.bold
+      children: <Widget>[
+        Card(
+          child: Padding(
+            padding: EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'Опис',
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+                Container(height: 8),
+                ExpandText(
+                  anime.synopsis,
+                  maxLines: 6,
+                  textAlign: TextAlign.justify,
+                ),
+              ],
             ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          child: Text(
-              anime.synopsis,
-              style: TextStyle(
-                fontSize: 13,
-                fontStyle: FontStyle.italic
-              ),
           ),
         ),
       ],
@@ -222,10 +224,11 @@ class ArtGalleryWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text("Арти",
-              style: TextStyle(
-                  fontSize: 21,
-                  fontWeight: FontWeight.bold
-              ),
+              style: Theme.of(context).textTheme.headline6,
+              // style: TextStyle(
+              //     fontSize: 21,
+              //     fontWeight: FontWeight.bold
+              // ),
             ),
           ),
           SizedBox(height: 4),
@@ -273,10 +276,11 @@ class DubWidget extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text("Даб",
-                  style: TextStyle(
-                      fontSize: 21,
-                      fontWeight: FontWeight.bold
-                  ),
+                  style: Theme.of(context).textTheme.headline6,
+                  // style: TextStyle(
+                  //     fontSize: 21,
+                  //     fontWeight: FontWeight.bold
+                  // ),
                 ),
               ),
               Column(
