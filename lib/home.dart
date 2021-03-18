@@ -1,5 +1,6 @@
 import 'package:anime_list_app/screens/anime_draggable_page_screen.dart';
 import 'package:anime_list_app/screens/anime_page_screen.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'models/anime.dart';
@@ -34,8 +35,12 @@ class AnimeListWidget extends StatelessWidget {
                       flex: 3,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10.0),
-                        child: Image.network(
-                          animes[index].mainPicture,
+                        child: CachedNetworkImage(
+                          imageUrl: animes[index].mainPicture,
+                          placeholder: (context, url) => Center(child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(Colors.blueGrey)
+                          )),
+                          errorWidget: (context, url, error) => Icon(Icons.error),
                         ),
                       ),
                     ),
@@ -109,10 +114,7 @@ class AnimePageWidget extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     final Anime anime = ModalRoute.of(context).settings.arguments;
-    return MaterialApp(
-      title: "Anime info",
-      home: AnimePageScreen(anime: anime),
-    );
+    return AnimePageScreen(anime: anime);
   }
 
 }

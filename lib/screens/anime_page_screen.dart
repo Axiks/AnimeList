@@ -1,4 +1,6 @@
 import 'package:anime_list_app/models/anime.dart';
+import 'package:anime_list_app/models/art.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:expand_widget/expand_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -25,8 +27,11 @@ class AnimePageScreen extends StatelessWidget {
               stretch: true,
               flexibleSpace: FlexibleSpaceBar(
                 background: FittedBox(
-                  child: Image.network(anime.arts[0])
-                  ,
+                  child: CachedNetworkImage(
+                    imageUrl: anime.arts[0],
+                    placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                  ),
                   fit: BoxFit.fitWidth,
                 ),
                 title: Text(anime.alternativeTitles['ua']),
@@ -106,8 +111,11 @@ class HeadWidget extends StatelessWidget {
           flex: 3, // 20%
           child: ClipRRect(
             borderRadius: BorderRadius.circular(15.0),
-            child: Image.network(anime.mainPicture),
-          ),
+            child: CachedNetworkImage(
+              imageUrl: anime.mainPicture,
+              placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+              errorWidget: (context, url, error) => Icon(Icons.error),
+            ),          ),
         ),
         Expanded(
           flex: 7, // 60%
@@ -240,10 +248,21 @@ class ArtGalleryWidget extends StatelessWidget {
                 itemCount: anime.arts.length,
                 itemBuilder: (_, index)=> Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(15.0),
-                    child: Image.network(
-                        anime.arts[index]
+                  child: InkWell(
+                    onTap: () {
+                      Art art = Art(index, anime);
+                      Navigator.pushNamed(context, '/image', arguments: art);
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15.0),
+                      child: CachedNetworkImage(
+                        imageUrl: anime.arts[index],
+                        placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      ),
+                      // child: Image.network(
+                      //     anime.arts[index]
+                      // ),
                     ),
                   ),
                 )

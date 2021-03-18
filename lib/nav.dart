@@ -1,5 +1,6 @@
 import 'package:anime_list_app/screens/gellery_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 import 'home.dart';
 
