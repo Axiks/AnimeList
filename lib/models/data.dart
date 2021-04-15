@@ -1,6 +1,21 @@
+import 'package:anime_list_app/models/user.dart';
+
 import 'anime.dart';
 import 'dub.dart';
 class Data{
+  User adrian = User("Adrian", "https://www.goha.ru/s/A:NX/Xj/utWvPIbVmY.jpg", "https://cdn.iz.ru/sites/default/files/styles/900x506/public/article-2020-06/34434.jpg");
+
+  User getUser(){
+    List<Anime> allanime;
+    List<Anime> favanime = [];
+    allanime = getAnime();
+    favanime.add(allanime[1]);
+    favanime.add(allanime[3]);
+    favanime.add(allanime[2]);
+    adrian.setFavoriteAnimeList(favanime);
+    return adrian;
+  }
+
   List<Anime> getAnime(){
     Anime reZero = Anime();
     reZero.malId = 31240;
@@ -236,3 +251,4 @@ class Data{
     return myAnime;
   }
 }
+

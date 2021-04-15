@@ -20,90 +20,104 @@ class AnimeListWidget extends StatelessWidget {
           IconButton(icon: Icon(Icons.search), onPressed: (){})
         ],
       ),
-        body: ListView.builder(
-          physics: BouncingScrollPhysics(),
-          itemCount: animes.length,
-          itemBuilder: (_, index) => Card(
-              elevation: 0,
-              //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-              child: InkWell(
-                onTap: () => Navigator.pushNamed(context, '/anime/${animes[index].malId}', arguments: animes[index]),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Expanded(
-                      flex: 3,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: CachedNetworkImage(
-                          imageUrl: animes[index].mainPicture,
-                          placeholder: (context, url) => Center(child: CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(Colors.blueGrey)
-                          )),
-                          errorWidget: (context, url, error) => Icon(Icons.error),
-                        ),
-                      ),
+        body: AnimesWidget(animes: animes),
+        );
+  }
+}
+
+class AnimesWidget extends StatelessWidget {
+  const AnimesWidget({
+    Key key,
+    @required this.animes,
+  }) : super(key: key);
+
+  final List<Anime> animes;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      physics: BouncingScrollPhysics(),
+      itemCount: animes.length,
+      itemBuilder: (_, index) => Card(
+          elevation: 0,
+          //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          child: InkWell(
+            onTap: () => Navigator.pushNamed(context, '/anime/${animes[index].malId}', arguments: animes[index]),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Expanded(
+                  flex: 3,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: CachedNetworkImage(
+                      imageUrl: animes[index].mainPicture,
+                      placeholder: (context, url) => Center(child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(Colors.blueGrey)
+                      )),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
-                    Expanded(
-                      flex: 7, // 60%
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                                child: Text(
-                                  animes[index].alternativeTitles['ua'],
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: new TextStyle(
-                                    fontSize: 14.0,
-                                    fontFamily: 'Roboto',
-                                    color: new Color(0xFF212121),
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                )
-                            ),
-                            SizedBox(
-                              height: 2,
-                            ),
-                            Container(
-                                child: Text(
-                                  animes[index].alternativeTitles['en'],
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: new TextStyle(
-                                    fontSize: 11.0,
-                                    fontFamily: 'Roboto',
-                                    color: new Color(0xFF7C7C7C),
-                                  ),
-                                )
-                            ),
-                            SizedBox(
-                              height: 4,
-                            ),
-                            Container(
-                                child: Text(
-                                  animes[index].synopsis,
-                                  maxLines: 4,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: new TextStyle(
-                                    fontSize: 13.0,
-                                    fontFamily: 'Roboto',
-                                    color: new Color(0xFF212121),
-                                  ),
-                                )
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
+                  ),
                 ),
-              ),
+                Expanded(
+                  flex: 7, // 60%
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                            child: Text(
+                              animes[index].alternativeTitles['ua'],
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: new TextStyle(
+                                fontSize: 14.0,
+                                fontFamily: 'Roboto',
+                                color: new Color(0xFF212121),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                        ),
+                        SizedBox(
+                          height: 2,
+                        ),
+                        Container(
+                            child: Text(
+                              animes[index].alternativeTitles['en'],
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: new TextStyle(
+                                fontSize: 11.0,
+                                fontFamily: 'Roboto',
+                                color: new Color(0xFF7C7C7C),
+                              ),
+                            )
+                        ),
+                        SizedBox(
+                          height: 4,
+                        ),
+                        Container(
+                            child: Text(
+                              animes[index].synopsis,
+                              maxLines: 4,
+                              overflow: TextOverflow.ellipsis,
+                              style: new TextStyle(
+                                fontSize: 13.0,
+                                fontFamily: 'Roboto',
+                                color: new Color(0xFF212121),
+                              ),
+                            )
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ],
             ),
           ),
-        );
+        ),
+      );
   }
 }
 

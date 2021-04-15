@@ -1,5 +1,7 @@
 import 'package:anime_list_app/models/anime.dart';
 import 'package:anime_list_app/models/art.dart';
+import 'package:anime_list_app/models/data.dart';
+import 'package:anime_list_app/models/user.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:expand_widget/expand_widget.dart';
 import 'package:flutter/material.dart';
@@ -167,11 +169,58 @@ class HeadWidget extends StatelessWidget {
                 SizedBox(
                   height: 2,
                 ),
+                FavAnimeWidget(),
               ],
             ),
           ),
         ),
       ],
+    );
+  }
+}
+
+class FavAnimeWidget extends StatefulWidget {
+  @override
+  _FavAnimeWidget createState() => _FavAnimeWidget();
+}
+
+class _FavAnimeWidget extends State<FavAnimeWidget> {
+  bool _favAnimeState = false;
+  Icon _affectedByStateChange = new Icon(
+    Icons.favorite,
+    color: Colors.red,
+  );
+
+
+  @override
+  Widget build(BuildContext context) {
+    User neko = Data().getUser();
+    List<Anime> nekoFavList = neko.favoriteAnime;
+    //final foundAnime = nekoFavList.where((element) => element.malId == )
+
+    _thisWillAffectTheState() {
+      _affectedByStateChange = new Icon(Icons.favorite, color: Colors.red);
+    }
+
+    _thisWillAlsoAffectTheState() {
+      _affectedByStateChange = new Icon(Icons.favorite_outline, color: Colors.grey);
+    }
+
+    return IconButton(
+        icon: _affectedByStateChange,
+        onPressed: (){
+          setState(() {
+            print("Fav btn preess: " + _favAnimeState.toString());
+
+            if(_favAnimeState){
+              _thisWillAffectTheState();
+            }
+            else{
+              _thisWillAlsoAffectTheState();
+            }
+            _favAnimeState = !_favAnimeState;
+          });
+        }
     );
   }
 }

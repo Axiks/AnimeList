@@ -1,4 +1,5 @@
 import 'package:anime_list_app/screens/gellery_screen.dart';
+import 'package:anime_list_app/screens/user_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,7 @@ class _NavState extends State<Nav> {
     Center(child: Text('Activites')),
     AnimeListWidget(),
     GalleryScreen(),
-    Center(child: Text('Profile')),
+    UserScreen(),
   ];
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -43,7 +44,10 @@ class _NavState extends State<Nav> {
               title: Text('Gallery')
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.circle),
+              icon: CircleAvatar(
+                  radius: 16,
+                  backgroundImage: NetworkImage('https://www.goha.ru/s/A:NX/Xj/utWvPIbVmY.jpg')
+              ),
               //icon: Icon(Icons.circle),
               title: Text('Profile')
           ),
