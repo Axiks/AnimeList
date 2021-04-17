@@ -1,3 +1,4 @@
+import 'package:anime_list_app/block/anime_favorite_check.dart';
 import 'package:anime_list_app/models/anime.dart';
 import 'package:anime_list_app/models/art.dart';
 import 'package:anime_list_app/models/data.dart';
@@ -5,6 +6,7 @@ import 'package:anime_list_app/models/user.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:expand_widget/expand_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -16,82 +18,63 @@ class AnimePageScreen extends StatelessWidget {
   }) : super(key: key);
   final Anime anime;
 
+  // Anime anime = Data().getAnime()[4];
+  // User neko = Data().getUser();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-          slivers: <Widget>[
-            SliverAppBar(
-              backgroundColor: Colors.black87, // status bar color
-              brightness: Brightness.light,
-              leading: Icon(Icons.chevron_left),
-              expandedHeight: 190,
-              stretch: true,
-              flexibleSpace: FlexibleSpaceBar(
-                background: FittedBox(
-                  child: CachedNetworkImage(
-                    imageUrl: anime.arts[0],
-                    placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
+      body: BlocProvider(
+        create: (BuildContext context) =>
+            AnimeFavoriteCheck(false),
+        child: CustomScrollView(
+            slivers: <Widget>[
+              SliverAppBar(
+                backgroundColor: Colors.black87, // status bar color
+                brightness: Brightness.light,
+                leading: Icon(Icons.chevron_left),
+                expandedHeight: 190,
+                stretch: true,
+                flexibleSpace: FlexibleSpaceBar(
+                  background: FittedBox(
+                    child: CachedNetworkImage(
+                      imageUrl: anime.arts[0],
+                      placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                    ),
+                    fit: BoxFit.fitWidth,
                   ),
-                  fit: BoxFit.fitWidth,
+                  title: Text(anime.alternativeTitles['ua']),
+                  stretchModes: [
+                    StretchMode.zoomBackground,
+                    StretchMode.blurBackground,
+                    StretchMode.fadeTitle
+                  ],
                 ),
-                title: Text(anime.alternativeTitles['ua']),
-                stretchModes: [
-                  StretchMode.zoomBackground,
-                  StretchMode.blurBackground,
-                  StretchMode.fadeTitle
-                ],
               ),
-            ),
-            SliverList(
-                delegate: SliverChildListDelegate([
-                  SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: HeadWidget(anime: anime),
-                  ),
-                  SizedBox(height: 0),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TagWidget(anime: anime),
-                  ),
-                  SizedBox(height: 10),
-                  DescriptionWidget(anime: anime),
-                  SizedBox(height: 10),
-                  DubWidget(anime: anime),
-                  SizedBox(height: 10),
-                  ArtGalleryWidget(anime: anime),
-                ])
-            ),
-          ]),
-    );
-
-    Scaffold(
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-
-              // HeadWidget(anime: anime),
-              // SizedBox(height: 20),
-              // TagWidget(anime: anime),
-              // SizedBox(height: 10),
-              // DescriptionWidget(anime: anime),
-              // SizedBox(height: 10),
-              // DubWidget(anime: anime),
-              // SizedBox(height: 10),
-              // ArtGalleryWidget(anime: anime),
-            ],
-          ),
-        ),
+              SliverList(
+                  delegate: SliverChildListDelegate([
+                    SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: HeadWidget(anime: anime),
+                    ),
+                    SizedBox(height: 0),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TagWidget(anime: anime),
+                    ),
+                    SizedBox(height: 10),
+                    DescriptionWidget(anime: anime),
+                    SizedBox(height: 10),
+                    DubWidget(anime: anime),
+                    SizedBox(height: 10),
+                    ArtGalleryWidget(anime: anime),
+                  ])
+              ),
+            ]),
       ),
     );
-
-
   }
 }
 
@@ -106,6 +89,11 @@ class HeadWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     initializeDateFormatting();
     final f = new DateFormat('d MMMM yyyy', 'uk_UA');
+
+    User neko = Data().getUser();
+    MyEvent eve = MyEvent(anime, neko);
+    context.read<AnimeFavoriteCheck>().add(eve);
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -170,11 +158,51 @@ class HeadWidget extends StatelessWidget {
                   height: 2,
                 ),
                 FavAnimeWidget(),
+                //TestWidget(),
               ],
             ),
           ),
         ),
       ],
+    );
+  }
+}
+
+class TestWidget extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: BlocProvider(
+        create: (BuildContext context) =>
+        AnimeFavoriteCheck(false),
+        child: TestBlockWidget()
+      )
+    );
+  }
+}
+
+class TestBlockWidget extends StatefulWidget {
+  @override
+  _TestBlockWidget createState() => _TestBlockWidget();
+}
+
+class _TestBlockWidget extends State<TestBlockWidget> {
+  Anime anime = Data().getAnime()[4];
+  User neko = Data().getUser();
+
+  @override
+  Widget build(BuildContext context) {
+    MyEvent me = MyEvent(anime, neko);
+    context.read<AnimeFavoriteCheck>().add(me);
+
+    return Container(
+      child: BlocBuilder<AnimeFavoriteCheck, bool>(
+          builder: (context, state) {
+            return Center(
+              child: Text('$state', style: Theme.of(context).textTheme.headline1),
+            );
+          }
+      )
     );
   }
 }
@@ -185,7 +213,7 @@ class FavAnimeWidget extends StatefulWidget {
 }
 
 class _FavAnimeWidget extends State<FavAnimeWidget> {
-  bool _favAnimeState = false;
+  //bool _favAnimeState = false;
   Icon _affectedByStateChange = new Icon(
     Icons.favorite,
     color: Colors.red,
@@ -194,8 +222,8 @@ class _FavAnimeWidget extends State<FavAnimeWidget> {
 
   @override
   Widget build(BuildContext context) {
-    User neko = Data().getUser();
-    List<Anime> nekoFavList = neko.favoriteAnime;
+    //User neko = Data().getUser();
+    //List<Anime> nekoFavList = neko.favoriteAnime;
     //final foundAnime = nekoFavList.where((element) => element.malId == )
 
     _thisWillAffectTheState() {
@@ -206,23 +234,27 @@ class _FavAnimeWidget extends State<FavAnimeWidget> {
       _affectedByStateChange = new Icon(Icons.favorite_outline, color: Colors.grey);
     }
 
-    return IconButton(
-        icon: _affectedByStateChange,
-        onPressed: (){
-          setState(() {
-            print("Fav btn preess: " + _favAnimeState.toString());
+    return BlocBuilder<AnimeFavoriteCheck, bool>(
+    builder: (context, state) {
+      state ? _thisWillAffectTheState() : _thisWillAlsoAffectTheState();
+      print("Love btn state: " + state.toString());
+      return IconButton(
+          icon: _affectedByStateChange,
+          onPressed: (){
+            setState(() {
 
-            if(_favAnimeState){
-              _thisWillAffectTheState();
-            }
-            else{
-              _thisWillAlsoAffectTheState();
-            }
-            _favAnimeState = !_favAnimeState;
-          });
-        }
-    );
-  }
+              if(state){
+                _thisWillAffectTheState();
+              }
+              else{
+                _thisWillAlsoAffectTheState();
+              }
+              //_favAnimeState = !_favAnimeState;
+            });
+          }
+      );
+    });
+}
 }
 
 class DescriptionWidget extends StatelessWidget {
