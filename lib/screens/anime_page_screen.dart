@@ -12,11 +12,8 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AnimePageScreen extends StatelessWidget {
-  const AnimePageScreen({
-    Key key,
-    @required this.anime,
-  }) : super(key: key);
   final Anime anime;
+  const AnimePageScreen(this.anime, {Key? key}): super(key: key);
 
   // Anime anime = Data().getAnime()[4];
   // User neko = Data().getUser();
@@ -57,19 +54,19 @@ class AnimePageScreen extends StatelessWidget {
                     SizedBox(height: 10),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: HeadWidget(anime: anime),
+                      child: HeadWidget(anime),
                     ),
                     SizedBox(height: 0),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: TagWidget(anime: anime),
+                      child: TagWidget(anime),
                     ),
                     SizedBox(height: 10),
-                    DescriptionWidget(anime: anime),
+                    DescriptionWidget(anime),
                     SizedBox(height: 10),
-                    DubWidget(anime: anime),
+                    DubWidget(anime),
                     SizedBox(height: 10),
-                    ArtGalleryWidget(anime: anime),
+                    ArtGalleryWidget(anime),
                   ])
               ),
             ]),
@@ -79,11 +76,8 @@ class AnimePageScreen extends StatelessWidget {
 }
 
 class HeadWidget extends StatelessWidget {
-  const HeadWidget({
-    Key key,
-    @required this.anime,
-  }) : super(key: key);
   final Anime anime;
+  const HeadWidget(this.anime, {Key? key}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -258,12 +252,8 @@ class _FavAnimeWidget extends State<FavAnimeWidget> {
 }
 
 class DescriptionWidget extends StatelessWidget {
-  const DescriptionWidget({
-    Key key,
-    @required this.anime,
-  }) : super(key: key);
-
   final Anime anime;
+  const DescriptionWidget(this.anime, {Key? key}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -296,12 +286,8 @@ class DescriptionWidget extends StatelessWidget {
 }
 
 class ArtGalleryWidget extends StatelessWidget {
-  const ArtGalleryWidget({
-    Key key,
-    @required this.anime,
-  }) : super(key: key);
-
   final Anime anime;
+  const ArtGalleryWidget(this.anime, {Key? key}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -331,7 +317,10 @@ class ArtGalleryWidget extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
                   child: InkWell(
                     onTap: () {
-                      Art art = Art(index, anime);
+                      Art art = Art(
+                        index: index,
+                        anime: anime
+                      );
                       Navigator.pushNamed(context, '/image', arguments: art);
                     },
                     child: ClipRRect(
@@ -356,12 +345,9 @@ class ArtGalleryWidget extends StatelessWidget {
 }
 
 class DubWidget extends StatelessWidget {
-  DubWidget({
-    Key key,
-    @required this.anime,
-  }) : super(key: key);
-
   final Anime anime;
+  DubWidget(this.anime, {Key? key}): super(key: key);
+
   List <int> exampleList =  [1,2,3,4];
 
   @override
@@ -457,12 +443,8 @@ class DubWidget extends StatelessWidget {
 }
 
 class TagWidget extends StatelessWidget {
-  const TagWidget({
-    Key key,
-    @required this.anime,
-  }) : super(key: key);
-
   final Anime anime;
+  const TagWidget(this.anime, {Key? key}): super(key: key);
 
   @override
   Widget build(BuildContext context) {

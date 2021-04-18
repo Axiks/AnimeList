@@ -13,7 +13,7 @@ class UserScreen extends StatelessWidget{
         child:
           Column(
             children:  <Widget>[
-              Container(child: ProfileWidget(adrian: adrian)),
+              Container(child: ProfileWidget(adrian)),
               Container(
                 child: SizedBox(
                   height: 10,
@@ -27,7 +27,7 @@ class UserScreen extends StatelessWidget{
                   ),
                 ),
               ),
-              AnimesWidget(animes: adrian.favoriteAnime)
+              AnimesWidget(adrian.favoriteAnime)
             ],
           )
       )
@@ -37,12 +37,9 @@ class UserScreen extends StatelessWidget{
 }
 
 class ProfileWidget extends StatelessWidget {
-  const ProfileWidget({
-    Key key,
-    @required this.adrian,
-  }) : super(key: key);
-
   final User adrian;
+
+  const ProfileWidget(this.adrian, {Key? key}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -94,12 +91,9 @@ class ProfileWidget extends StatelessWidget {
 }
 
 class AnimesWidget extends StatelessWidget {
-  const AnimesWidget({
-    Key key,
-    @required this.animes,
-  }) : super(key: key);
-
   final List<Anime> animes;
+  const AnimesWidget(this.animes, {Key? key}): super(key: key);
+
 
   @override
   Widget build(BuildContext context) {

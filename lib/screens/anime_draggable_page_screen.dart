@@ -3,12 +3,8 @@ import 'package:flutter/material.dart';
 import '../models/anime.dart';
 
 class AnimeDraggableScrollableScreen extends StatelessWidget {
-  const AnimeDraggableScrollableScreen({
-    Key key,
-    @required this.anime,
-  }) : super(key: key);
-
   final Anime anime;
+  const AnimeDraggableScrollableScreen(this.anime, {Key? key}): super(key: key);
 
   @override
   Widget build(BuildContext context) {

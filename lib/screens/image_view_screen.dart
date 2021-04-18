@@ -7,7 +7,7 @@ class ImageViewScreen extends StatelessWidget{
   @override
 
   Widget build(BuildContext context) {
-    final Art art = ModalRoute.of(context).settings.arguments;
+    final Art art = ModalRoute.of(context)!.settings.arguments as Art;
     return Scaffold(
       body: SnappingSheet(
           // TODO: Add your content that is placed
@@ -19,7 +19,7 @@ class ImageViewScreen extends StatelessWidget{
         ),
         grabbingHeight: 65,
         // TODO: Add your grabbing widget here,
-        grabbing: ImageInfoWidget(art: art),
+        grabbing: ImageInfoWidget(art),
         sheetBelow: SnappingSheetContent(
             child: Container(
               color: Colors.white,
@@ -31,12 +31,9 @@ class ImageViewScreen extends StatelessWidget{
 }
 
 class ImageInfoWidget extends StatelessWidget {
-  const ImageInfoWidget({
-    Key key,
-    @required this.art,
-  }) : super(key: key);
-
   final Art art;
+  const ImageInfoWidget(this.art, {Key? key}): super(key: key);
+
 
   @override
   Widget build(BuildContext context) {

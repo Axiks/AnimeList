@@ -9,9 +9,9 @@ void main() {
 }
 
 class RouteWidget extends StatelessWidget {
-  const RouteWidget({
-    Key key,
-  }) : super(key: key);
+  // const RouteWidget({
+  //   Key key,
+  // }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +25,10 @@ class RouteWidget extends StatelessWidget {
       },
       onUnknownRoute: (routeSetting) => _errorRoute(),
       onGenerateRoute: (routeSetting){
-        var path = routeSetting.name.split('/');
+        var path = routeSetting.name!.split('/');
 
         if(path[1] == 'anime') {
-          return new MaterialPageRoute(builder: (context) => new AnimePageWidget(id:path[2]),
+          return new MaterialPageRoute(builder: (context) => new AnimePageWidget(),
           settings: routeSetting);
         }
 

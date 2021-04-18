@@ -12,7 +12,7 @@ class AnimeListWidget extends StatelessWidget {
     List<Anime> animes = Data().getAnime();
     return  Scaffold(
       appBar: AppBar(
-        title: Text("Neko List App :3"),
+        title: Text("Neko List App ;3"),
         centerTitle: true,
         backgroundColor: Colors.black87, // status bar color
         brightness: Brightness.light, // status
@@ -20,18 +20,14 @@ class AnimeListWidget extends StatelessWidget {
           IconButton(icon: Icon(Icons.search), onPressed: (){})
         ],
       ),
-        body: AnimesWidget(animes: animes),
+        body: AnimesWidget(animes),
         );
   }
 }
 
 class AnimesWidget extends StatelessWidget {
-  const AnimesWidget({
-    Key key,
-    @required this.animes,
-  }) : super(key: key);
-
   final List<Anime> animes;
+  const AnimesWidget(this.animes, {Key? key}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -122,28 +118,31 @@ class AnimesWidget extends StatelessWidget {
 }
 
 class AnimePageWidget extends StatelessWidget{
-  String _id;
-  AnimePageWidget({String id}):_id = id;
+  // final String _id;
+  // const AnimePageWidget(this._id, {Key? key}): super(key: key);
+
+
 
   @override
   Widget build(BuildContext context) {
-    final Anime anime = ModalRoute.of(context).settings.arguments;
-    return AnimePageScreen(anime: anime);
+    final Anime anime = ModalRoute.of(context)!.settings.arguments as Anime;
+    return AnimePageScreen(anime);
   }
 
 }
 
 class AnimeDraggableScrollable extends StatelessWidget{
-  String _id;
-  AnimeDraggableScrollable({String id}):_id = id;
+  final String _id;
+
+  const AnimeDraggableScrollable(this._id, {Key? key}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final Anime anime = ModalRoute.of(context).settings.arguments;
+    final Anime anime = ModalRoute.of(context)!.settings.arguments as Anime;
     return MaterialApp(
         //color: Colors.grey,
         title: "Anime info",
-        home: AnimeDraggableScrollableScreen(anime: anime)
+        home: AnimeDraggableScrollableScreen(anime)
     );
   }
   Widget cardsWidget(itemIndex)=> Container(

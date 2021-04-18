@@ -8,22 +8,21 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import '../models/anime.dart';
 
 class GalleryScreen extends StatelessWidget {
-  const GalleryScreen({
-    Key key,
-    @required this.anime,
-  }) : super(key: key);
-
-  final Anime anime;
+  // final Anime anime;
+  // const GalleryScreen(this.anime, {Key? key}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
     List<Anime> allAnimeData = Data().getAnime();
-    List<Art> arts = List<Art>();
+    List<Art> arts = [];
     for (Anime anime in allAnimeData) {
       List<String> anime_arts_list = anime.arts;
       int i = 0;
       while(i < anime_arts_list.length) {
-        arts.add(Art(i, anime));
+        arts.add(Art(
+          index: i,
+          anime: anime
+        ));
         i++;
       }
       // for (String art in anime_arts_list) {
