@@ -4,24 +4,87 @@ import 'package:anime_list_app/models/user.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class MyEvent{
-  final Anime anime;
-  final User user;
+import 'favorite_event.dart';
 
-  const MyEvent(this.anime, this.user);
+// class MyEvent{
+//   final Anime anime;
+//   final User user;
+//
+//   const MyEvent(this.anime, this.user);
+//
+//   @override
+//   // TODO: implement props
+//   List<Object> get props => [anime, user];
+// }
 
-  @override
-  // TODO: implement props
-  List<Object> get props => [anime, user];
-}
 
-
-class AnimeFavoriteCheck extends Bloc<MyEvent, bool> {
+class AnimeFavoriteCheck extends Bloc<FavoriteEvent, bool> {
   AnimeFavoriteCheck(bool initialState) : super(true);
 
   @override
-  Stream<bool> mapEventToState(MyEvent event) async* {
+  Stream<bool> mapEventToState(FavoriteEvent event) async* {
     print("Start, mapEventToState: " + event.toString());
+
+    if (event is FavoriteGet) {
+      yield* _mapFavoritesGetToState(event);
+    } else if (event is FavoriteAdded) {
+      yield* _mapFavoriteAddedToState(event);
+    } else if (event is FavoriteDeleted) {
+      yield* _mapFavoriteDeletedToState(event);
+    }else{
+      print("Else");
+    }
+    // Anime anime_comparison = event.anime;
+    // User neko = event.user;
+    // List<Anime> favoriteAnimeList = neko.favoriteAnime;
+    // print("Anime, id: " + anime_comparison.malId.toString());
+    // bool btnStatus = false;
+    // for(int i=0; i < favoriteAnimeList.length; i++){
+    //   print("Anime check id: " + favoriteAnimeList[i].malId.toString());
+    //   if(anime_comparison.malId.compareTo(favoriteAnimeList[i].malId) == 0){
+    //     print("true");
+    //     btnStatus = true;
+    //     break;
+    //   }
+    // }
+    // yield btnStatus;
+  }
+
+  Stream<bool>  _mapFavoritesGetToState(FavoriteGet event) async* {
+    Anime anime_comparison = event.anime;
+    User neko = event.user;
+    List<Anime> favoriteAnimeList = neko.favoriteAnime;
+    print("Anime, id: " + anime_comparison.malId.toString());
+    bool btnStatus = false;
+    for(int i=0; i < favoriteAnimeList.length; i++){
+      print("Anime check id: " + favoriteAnimeList[i].malId.toString());
+      if(anime_comparison.malId.compareTo(favoriteAnimeList[i].malId) == 0){
+        print("true");
+        btnStatus = true;
+        break;
+      }
+    }
+    yield btnStatus;
+  }
+
+  Stream<bool>  _mapFavoriteAddedToState(FavoriteGet event) async* {
+    Anime anime_comparison = event.anime;
+    User neko = event.user;
+    List<Anime> favoriteAnimeList = neko.favoriteAnime;
+    print("Anime, id: " + anime_comparison.malId.toString());
+    bool btnStatus = false;
+    for(int i=0; i < favoriteAnimeList.length; i++){
+      print("Anime check id: " + favoriteAnimeList[i].malId.toString());
+      if(anime_comparison.malId.compareTo(favoriteAnimeList[i].malId) == 0){
+        print("true");
+        btnStatus = true;
+        break;
+      }
+    }
+    yield btnStatus;
+  }
+
+  Stream<bool>  _mapFavoriteDeletedToState(FavoriteGet event) async* {
     Anime anime_comparison = event.anime;
     User neko = event.user;
     List<Anime> favoriteAnimeList = neko.favoriteAnime;
