@@ -14,7 +14,7 @@ class _NavState extends State<Nav> {
   @override
   int _currentIndex = 0;
   List<Widget> _widgetOptions = <Widget>[
-    // Center(child: Text('Activites')),
+    Center(child: Text('Activites')),
     AnimeListWidget(),
     GalleryScreen(),
     UserScreen(),
@@ -28,11 +28,11 @@ class _NavState extends State<Nav> {
          unselectedItemColor: Colors.blueGrey,
         currentIndex: _currentIndex,
         items: [
-          // BottomNavigationBarItem(
-          //   //icon: Icon(Icons.pets),
-          //     icon: Icon(Icons.scatter_plot),
-          //     title: Text('Actives')
-          // ),
+          BottomNavigationBarItem(
+            //icon: Icon(Icons.pets),
+              icon: Icon(Icons.scatter_plot),
+              title: Text('Actives')
+          ),
           BottomNavigationBarItem(
             //icon: Icon(Icons.compass_calibration_sharp),
               icon: Icon(Icons.explore_outlined),

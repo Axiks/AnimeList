@@ -9,20 +9,20 @@ class FavoriteFiels{
   static final String id = "_id";
   static final String userId = "user_id";
   static final String animeId = "anime_id";
-  static final String time = "anime_id";
+  static final String time = "time";
 }
 
 class Favorite {
-  final int id;
+  final int? id;
   final Anime anime;
   final User user;
-  final DateTime createdTime;
+  final DateTime? createdTime;
 
   const Favorite({
-    required this.id,
+    this.id,
     required this.anime,
     required this.user,
-    required this.createdTime
+    this.createdTime
 });
 
   @override
@@ -30,10 +30,10 @@ class Favorite {
   List<Object> get props => [anime, user];
 
   Map<String, Object> toJson() => {
-    FavoriteFiels.id: id,
+    FavoriteFiels.id: id ?? 0,
     FavoriteFiels.userId: user.id,
     FavoriteFiels.animeId: anime.malId,
-    FavoriteFiels.time: createdTime.toIso8601String(),
+    FavoriteFiels.time: createdTime ?? DateTime.now().toIso8601String(),
   };
 
   Favorite copy({

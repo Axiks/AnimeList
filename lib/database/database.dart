@@ -1,15 +1,35 @@
-// import 'dart:io';
-// import 'package:anime_list_app/models/favorite.dart';
-// import 'package:sqflite/sqflite.dart';
-// import 'dart:async';
-//
-// import 'package:path_provider/path_provider.dart';
-// import 'package:path/path.dart';
-//
+import 'dart:io';
+import 'package:anime_list_app/models/favorite.dart';
+import 'package:sqflite/sqflite.dart';
+import 'dart:async';
+
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart';
+
+class DBProvider {
+  static final _databasename = "anime_list.db";
+  static final _databaseersion = 1;
+  //var  db = await initializeDB();
+
+  Future<Database> initializeDB() async {
+    String path = await getDatabasesPath();
+    return await openDatabase(
+      join(path, _databasename),
+      version: _databaseersion,
+        onCreate: (Database db, int version) async {
+          await db.execute("CREATE TABLE $tableFavorite ("
+              "${FavoriteFiels.id} INTEGER PRIMARY KEY AUTOINCREMENT ,"
+              "${FavoriteFiels.userId} INTEGER NOT NULL,"
+              "${FavoriteFiels.animeId} INTEGER NOT NULL,"
+              "${FavoriteFiels.time} TEXT NOT NULL"
+              ")");
+        });
+  }
+}
+
 // class DBProvider {
-//   DBProvider._();
-//
-//   static final DBProvider db = DBProvider._();
+//   static final _databasename = "anime_list.db";
+//   static final _databaseersion = 1;
 //
 //   static Database _database;
 //
@@ -22,10 +42,11 @@
 //     return _database;
 //   }
 //
+//
 //   initDB() async {
 //     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-//     String path = join(documentsDirectory.path, "anime_list_db.db");
-//     return await openDatabase(path, version: 1,
+//     String path = join(documentsDirectory.path, _databasename);
+//     return await openDatabase(path, version: _databaseersion,
 //         onOpen: (db) {},
 //         onCreate: (Database db, int version) async {
 //           await db.execute("CREATE TABLE $tableFavorite ("

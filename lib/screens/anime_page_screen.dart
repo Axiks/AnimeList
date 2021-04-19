@@ -1,4 +1,5 @@
 import 'package:anime_list_app/block/anime_favorite_check.dart';
+import 'package:anime_list_app/block/favorite_event.dart';
 import 'package:anime_list_app/models/anime.dart';
 import 'package:anime_list_app/models/art.dart';
 import 'package:anime_list_app/models/data.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 
 class AnimePageScreen extends StatelessWidget {
   final Anime anime;
@@ -85,7 +87,7 @@ class HeadWidget extends StatelessWidget {
     final f = new DateFormat('d MMMM yyyy', 'uk_UA');
 
     User neko = Data().getUser();
-    MyEvent eve = MyEvent(anime, neko);
+    FavoriteGet eve = FavoriteGet(anime, neko);
     context.read<AnimeFavoriteCheck>().add(eve);
 
     return Row(
@@ -186,7 +188,7 @@ class _TestBlockWidget extends State<TestBlockWidget> {
 
   @override
   Widget build(BuildContext context) {
-    MyEvent me = MyEvent(anime, neko);
+    FavoriteGet me = FavoriteGet(anime, neko);
     context.read<AnimeFavoriteCheck>().add(me);
 
     return Container(
@@ -207,7 +209,6 @@ class FavAnimeWidget extends StatefulWidget {
 }
 
 class _FavAnimeWidget extends State<FavAnimeWidget> {
-  //bool _favAnimeState = false;
   Icon _affectedByStateChange = new Icon(
     Icons.favorite,
     color: Colors.red,
@@ -218,7 +219,6 @@ class _FavAnimeWidget extends State<FavAnimeWidget> {
   Widget build(BuildContext context) {
     //User neko = Data().getUser();
     //List<Anime> nekoFavList = neko.favoriteAnime;
-    //final foundAnime = nekoFavList.where((element) => element.malId == )
 
     _thisWillAffectTheState() {
       _affectedByStateChange = new Icon(Icons.favorite, color: Colors.red);
@@ -226,6 +226,9 @@ class _FavAnimeWidget extends State<FavAnimeWidget> {
 
     _thisWillAlsoAffectTheState() {
       _affectedByStateChange = new Icon(Icons.favorite_outline, color: Colors.grey);
+      //Add Fav
+      // FavoriteAdded eve = FavoriteAdded(anime, user);
+      // context.read<AnimeFavoriteCheck>().add(eve);
     }
 
     return BlocBuilder<AnimeFavoriteCheck, bool>(
