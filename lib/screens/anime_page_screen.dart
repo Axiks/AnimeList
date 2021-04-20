@@ -322,6 +322,7 @@ class ArtGalleryWidget extends StatelessWidget {
                     onTap: () {
                       Art art = Art(
                         index: index,
+                        href: anime.arts[index],
                         anime: anime
                       );
                       Navigator.pushNamed(context, '/image', arguments: art);

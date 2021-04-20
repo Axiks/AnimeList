@@ -2,27 +2,43 @@ import 'package:equatable/equatable.dart';
 
 import 'anime.dart';
 
+final String tableArt = 'art';
+
+class ArtFiels{
+  static final String id = "_id";
+  static final String animeId = "anime_id";
+  static final String href = "href";
+}
+
 class Art extends Equatable{
-  final int index;
+  final int? index;
+  final String href;
   final Anime anime;
 
-  // Art(int index, Anime anime){
-  //   this.anime = anime;
-  //   this.index = index;
-  // }
-
   const Art({
-    required this.index,
+    this.index,
+    required this.href,
     required this.anime,
 });
 
-  String getImgUrl(){
-    return this.anime.arts[this.index];
-  }
+  // String getImgUrl(){
+  //   return this.anime.arts[this.index];
+  // }
 
   @override
   List<Object?> get props => [
     index,
+    href,
     anime
   ];
+
+  Art copy({
+    int? index,
+    String? href,
+    Anime? anime,
+  }) => Art(
+    index: index ?? this.index,
+    href: href ?? this.href,
+    anime: anime ?? this.anime,
+  );
 }

@@ -1,6 +1,21 @@
 import 'package:equatable/equatable.dart';
-
 import 'dub.dart';
+
+final String tableAnime = 'anime';
+
+class AnimeFiels{
+  static final String malId = "_malId";
+  static final String title = "title";
+  static final String mainPicture = "mainPicture";
+  static final String startDate = "startDate";
+  static final String endDate = "endDate";
+  static final String synopsis = "synopsis";
+  static final String createdAt = "createdAt";
+  static final String updatedAt = "updatedAt";
+  static final String mediaType = "mediaType";
+  static final String status = "status";
+}
+
 
 class Anime extends Equatable{
   final int malId;

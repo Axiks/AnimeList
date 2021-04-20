@@ -14,7 +14,7 @@ class ImageViewScreen extends StatelessWidget{
           // behind the sheet.
         child: Center(
           child: CachedNetworkImage(
-            imageUrl: art.getImgUrl(),
+            imageUrl: art.href,
           ),
         ),
         grabbingHeight: 65,
