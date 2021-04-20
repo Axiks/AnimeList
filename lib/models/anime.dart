@@ -36,7 +36,7 @@ class Anime extends Equatable{
   const Anime({
     required  this.malId,
     required this.title,
-    required this.alternativeTitles,
+    this.alternativeTitles = const {},
     required this.mainPicture,
     required this.startDate,
     required this.endDate,
@@ -45,9 +45,9 @@ class Anime extends Equatable{
     required this.updatedAt,
     required this.mediaType,
     required this.status,
-    required this.genres,
-    required this.dubs,
-    required this.arts
+    this.genres = const [],
+    this.dubs = const [],
+    this.arts = const []
 });
 
   @override
@@ -67,6 +67,35 @@ class Anime extends Equatable{
     dubs,
     arts
   ];
+
+  Map<String, Object> toJson() => {
+    AnimeFiels.malId : malId,
+    AnimeFiels.title: title,
+    AnimeFiels.mainPicture: mainPicture,
+    AnimeFiels.startDate: startDate,
+    AnimeFiels.endDate: endDate,
+    AnimeFiels.synopsis: synopsis,
+    AnimeFiels.createdAt: createdAt,
+    AnimeFiels.updatedAt: updatedAt,
+    AnimeFiels.mediaType: mediaType,
+    AnimeFiels.status: status,
+  };
+
+  factory Anime.fromDatabaseJson(Map<String, dynamic> data) => Anime(
+    malId: data[AnimeFiels.malId],
+    title: data[AnimeFiels.title],
+    mainPicture: data[AnimeFiels.mainPicture],
+    startDate: data[AnimeFiels.startDate],
+    endDate: data[AnimeFiels.endDate],
+    synopsis: data[AnimeFiels.synopsis],
+    createdAt: data[AnimeFiels.createdAt],
+    updatedAt: data[AnimeFiels.updatedAt],
+    mediaType: data[AnimeFiels.mediaType],
+    status: data[AnimeFiels.status],
+
+    // name: data['name'],
+    // isDone: data['is_done'] == 0 ? false : true,
+  );
 
   Anime copy({
     int? malId,

@@ -8,20 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'favorite_event.dart';
 
-// class MyEvent{
-//   final Anime anime;
-//   final User user;
-//
-//   const MyEvent(this.anime, this.user);
-//
-//   @override
-//   // TODO: implement props
-//   List<Object> get props => [anime, user];
-// }
-
-
 class AnimeFavoriteCheck extends Bloc<FavoriteEvent, bool> {
-  AnimeFavoriteCheck(bool initialState) : super(true);
+  AnimeFavoriteCheck(bool initialState) : super(false);
 
   @override
   Stream<bool> mapEventToState(FavoriteEvent event) async* {
@@ -36,20 +24,6 @@ class AnimeFavoriteCheck extends Bloc<FavoriteEvent, bool> {
     }else{
       print("Else");
     }
-    // Anime anime_comparison = event.anime;
-    // User neko = event.user;
-    // List<Anime> favoriteAnimeList = neko.favoriteAnime;
-    // print("Anime, id: " + anime_comparison.malId.toString());
-    // bool btnStatus = false;
-    // for(int i=0; i < favoriteAnimeList.length; i++){
-    //   print("Anime check id: " + favoriteAnimeList[i].malId.toString());
-    //   if(anime_comparison.malId.compareTo(favoriteAnimeList[i].malId) == 0){
-    //     print("true");
-    //     btnStatus = true;
-    //     break;
-    //   }
-    // }
-    // yield btnStatus;
   }
 
   Stream<bool>  _mapFavoritesGetToState(FavoriteGet event) async* {
