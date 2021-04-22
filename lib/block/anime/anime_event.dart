@@ -8,6 +8,16 @@ abstract class AnimeEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class AnimeSearch extends AnimeEvent {
+  final String name;
+
+  const AnimeSearch(this.name);
+
+  @override
+  // TODO: implement props
+  List<Object> get props => [name];
+}
+
 class AnimeGet extends AnimeEvent {
   final int id;
 

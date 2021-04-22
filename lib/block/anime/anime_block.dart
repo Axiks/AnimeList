@@ -1,12 +1,13 @@
 import 'package:anime_list_app/dao/anime_dao.dart';
 import 'package:anime_list_app/models/anime.dart';
+import 'package:anime_list_app/repository/anime_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'anime_event.dart';
 import 'anime_states.dart';
 
 class AnimeBlock extends Bloc<AnimeEvent, AnimeState> {
-  AnimeBlock(bool initialState) : super(AnimeInitial());
+  AnimeBlock(AnimeState initialState) : super(AnimeInitial());
   @override
   Stream<AnimeState> mapEventToState(AnimeEvent event) async* {
 
@@ -18,6 +19,8 @@ class AnimeBlock extends Bloc<AnimeEvent, AnimeState> {
       yield* _mapAnimeAddedToState(event);
     } else if (event is AnimeDeleted) {
       yield* _mapAnimeDeletedToState(event);
+    } else if (event is AnimeSearch) {
+      yield* _mapAnimeSearchToState(event);
     }else{
       print("Else");
     }
@@ -25,15 +28,17 @@ class AnimeBlock extends Bloc<AnimeEvent, AnimeState> {
 
   Stream<AnimeSuccess> _mapAimeGetToState(AnimeGet event) async* {
     int animeId = event.id;
-    Anime anime = await AnimeDao().getAnime(animeId);
-    List<Anime> animes = [anime];
-    AnimeSuccess state = AnimeSuccess(anime: animes);
+    List<Anime> animes = await AnimeDao().getAnime(animeId);
+    AnimeSuccess state = AnimeSuccessFalse();
+    if(animes.length == 1){
+      state = AnimeSuccessTrue(anime: animes);
+    }
     yield state;
   }
 
   Stream<AnimeSuccess> _mapAnmeGetAllToState() async* {
     List<Anime> animes = await AnimeDao().getAllAnime();
-    AnimeSuccess state = AnimeSuccess(anime: animes);
+    AnimeSuccess state = AnimeSuccessTrue(anime: animes);
     yield state;
   }
 
@@ -51,4 +56,9 @@ class AnimeBlock extends Bloc<AnimeEvent, AnimeState> {
     yield state;
   }
 
+  Stream<AnimeSuccess> _mapAnimeSearchToState(AnimeSearch event) async* {
+    String name = event.name;
+    List<Anime> result = await AnimeRepository().animeSearch(name);
+    yield AnimeSuccessTrue(anime: result);
+  }
 }

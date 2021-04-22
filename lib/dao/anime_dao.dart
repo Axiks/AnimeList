@@ -7,7 +7,7 @@ class AnimeDao{
   String _tableName = tableAnime;
 
   //Get Anime records
-  Future<Anime> getAnime(int id) async {
+  Future<List<Anime>> getAnime(int id) async {
     List<String> columns = [
       AnimeFiels.malId,
       AnimeFiels.title,
@@ -28,10 +28,14 @@ class AnimeDao{
         whereArgs: [id]
     );
 
+    print("Get anime  result: " + result.toString());
+    print("Lenght anime  result: " + result.length.toString());
+
     List<Anime> animes = result.isNotEmpty
         ? result.map((item) => Anime.fromDatabaseJson(item)).toList()
         : [];
-    return animes.first;
+    //return animes.first;
+    return animes;
   }
 
   //Get All Anime records
@@ -63,6 +67,7 @@ class AnimeDao{
   //Adds new Anime records
   Future<bool> addAnime(Anime anime) async {
     Database db = await dbProvider.initializeDB();
+    print(anime.toJson());
     int id = await db.insert(_tableName, anime.toJson());
     bool status = false;
     if (id > 0){

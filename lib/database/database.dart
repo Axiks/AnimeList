@@ -18,15 +18,17 @@ import 'package:path/path.dart';
 
 class DBProvider {
   static final _databasename = "anime_list.db";
-  static final _databaseersion = 1;
+  static final _databaseersion = 3;
   //var  db = await initializeDB();
 
   Future<Database> initializeDB() async {
     String path = await getDatabasesPath();
+    print("DB patch: " + join(path, _databasename));
     return await openDatabase(
       join(path, _databasename),
       version: _databaseersion,
         onCreate: (Database db, int version) async {
+          print("DB create table start ");
           //Favorite
           await db.execute("CREATE TABLE $tableFavorite ("
               "${FavoriteFiels.id} INTEGER PRIMARY KEY AUTOINCREMENT ,"
@@ -41,7 +43,7 @@ class DBProvider {
               "${AnimeFiels.title} TEXT NOT NULL,"
               "${AnimeFiels.mainPicture} TEXT NOT NULL,"
               "${AnimeFiels.startDate} TEXT NOT NULL,"
-              "${AnimeFiels.endDate} TEXT,"
+              "${AnimeFiels.endDate} TEXT NOT NULL,"
               "${AnimeFiels.synopsis} TEXT NOT NULL,"
               "${AnimeFiels.createdAt} TEXT NOT NULL,"
               "${AnimeFiels.updatedAt} TEXT NOT NULL,"

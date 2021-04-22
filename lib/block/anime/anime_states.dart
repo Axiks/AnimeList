@@ -11,16 +11,23 @@ abstract class AnimeState extends Equatable {
 class AnimeInitial extends AnimeState {}
 
 class AnimeSuccess extends AnimeState {
+  const AnimeSuccess();
+
+  @override
+  List<Object> get props => [];
+}
+
+class AnimeSuccessTrue extends AnimeSuccess {
   final List<Anime> anime;
 
-  const AnimeSuccess({
+  const AnimeSuccessTrue({
     required this.anime,
   });
 
   AnimeSuccess copyWith({
     List<Anime>? anime
   }) {
-    return AnimeSuccess(
+    return AnimeSuccessTrue(
       anime: anime ?? this.anime,
     );
   }
@@ -28,6 +35,8 @@ class AnimeSuccess extends AnimeState {
   @override
   List<Object> get props => [anime];
 }
+
+class AnimeSuccessFalse extends AnimeSuccess {}
 
 class AnimeStatus extends AnimeState {
   final bool status;
