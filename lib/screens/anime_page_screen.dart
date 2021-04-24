@@ -22,6 +22,11 @@ class AnimePageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("StatelessWidget");
+    String cover_src = "";
+    if(anime.arts.length != 0){
+      cover_src = anime.arts[0];
+    }
     return Scaffold(
       body: BlocProvider(
         create: (BuildContext context) =>
@@ -37,13 +42,13 @@ class AnimePageScreen extends StatelessWidget {
                 flexibleSpace: FlexibleSpaceBar(
                   background: FittedBox(
                     child: CachedNetworkImage(
-                      imageUrl: anime.arts[0],
+                      imageUrl: cover_src,
                       placeholder: (context, url) => Center(child: CircularProgressIndicator()),
                       errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
                     fit: BoxFit.fitWidth,
                   ),
-                  title: Text(anime.alternativeTitles['ua']),
+                  title: Text(anime.alternativeTitles['ua'] ?? anime.title),
                   stretchModes: [
                     StretchMode.zoomBackground,
                     StretchMode.blurBackground,
@@ -53,7 +58,7 @@ class AnimePageScreen extends StatelessWidget {
               ),
               SliverList(
                   delegate: SliverChildListDelegate([
-                    SizedBox(height: 10),
+                     SizedBox(height: 10),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: HeadWidget(anime),
@@ -111,7 +116,7 @@ class HeadWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                    anime.alternativeTitles['ua'],
+                    anime.alternativeTitles['ua'] ?? anime.title,
                   style: new TextStyle(
                     fontSize: 14.0,
                     fontFamily: 'Roboto',
@@ -123,7 +128,7 @@ class HeadWidget extends StatelessWidget {
                   height: 2,
                 ),
                 Text(
-                    anime.alternativeTitles['en'],
+                    anime.alternativeTitles['en'] ?? "",
                     style: new TextStyle(
                       fontSize: 11.0,
                       fontFamily: 'Roboto',

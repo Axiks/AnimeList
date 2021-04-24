@@ -57,8 +57,12 @@ class AnimeBlock extends Bloc<AnimeEvent, AnimeState> {
   }
 
   Stream<AnimeSuccess> _mapAnimeSearchToState(AnimeSearch event) async* {
+    AnimeSuccess def = AnimeSuccessFalse();
     String name = event.name;
     List<Anime> result = await AnimeRepository().animeSearch(name);
-    yield AnimeSuccessTrue(anime: result);
+    print("Search state ON");
+    print("Search result: " + result.toString());
+    def = AnimeSuccessTrue(anime: result);
+    yield def;
   }
 }

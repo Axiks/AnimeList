@@ -1,4 +1,5 @@
 import 'package:anime_list_app/models/anime.dart';
+import 'package:built_collection/src/list.dart';
 import 'package:intl/intl.dart';
 import 'package:jikan_api/jikan_api.dart' as japi;
 
@@ -18,6 +19,8 @@ class MyAnimeListRep{
       if(dtEnd==null){
         dtEnd = DateFormat('yyyy-MM-ddTHH:mm:ss+').parse(result.endDate);
       }
+
+      //animeGetPictures(result.malId);
 
       Anime anime = Anime(
         malId: result.malId,
@@ -53,6 +56,13 @@ class MyAnimeListRep{
       updatedAt: DateTime.now(),
     );
     return anime;
+  }
+
+   animeGetPictures(int id) async {
+    var jikan = japi.Jikan();
+    BuiltList<japi.Picture> pictures = await jikan.getAnimePictures(id);
+    print("Anime count: " + pictures.length.toString());
+    print(pictures.toString());
   }
 
 }

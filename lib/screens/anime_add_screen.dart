@@ -4,6 +4,7 @@ import 'package:anime_list_app/block/anime/anime_states.dart';
 import 'package:anime_list_app/models/anime.dart';
 import 'package:anime_list_app/repository/anime_repository.dart';
 import 'package:anime_list_app/screens/anime_list_widget.dart';
+import 'package:anime_list_app/screens/anime_search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,18 +17,8 @@ class AnimeAddScreen extends StatelessWidget{
       body: BlocProvider(
         create: (BuildContext context) => AnimeBlock(AnimeInitial()),
         child: Container(
-          // child: FutureBuilder<List<Anime>>(
-          //     future: AnimeRepository().animeSearch("Toradora"),
-          //     builder: (context, snapshot) {
-          //       if (snapshot.hasData) {
-          //         List<Anime> a = snapshot.data as List<Anime>;
-          //         return AnimesListWidget(a);
-          //         //return Text(a.toString());
-          //       }
-          //       return CircularProgressIndicator();
-          //     }
-          // ),
-          child: CountAnimesWidget(),
+          //child: CountAnimesWidget(),
+          child: AnimeSearchScreen(),
         ),
       ),
     );

@@ -28,8 +28,8 @@ class AnimeDao{
         whereArgs: [id]
     );
 
-    print("Get anime  result: " + result.toString());
-    print("Lenght anime  result: " + result.length.toString());
+    //print("Get anime  result: " + result.toString());
+    //print("Lenght anime  result: " + result.length.toString());
 
     List<Anime> animes = result.isNotEmpty
         ? result.map((item) => Anime.fromDatabaseJson(item)).toList()
