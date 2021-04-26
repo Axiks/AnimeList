@@ -1,3 +1,4 @@
+import 'package:anime_list_app/models/genres.dart';
 import 'package:equatable/equatable.dart';
 import 'dub.dart';
 
@@ -13,14 +14,15 @@ class AnimeFiels{
   static final String createdAt = "createdAt";
   static final String updatedAt = "updatedAt";
   static final String mediaType = "mediaType";
-  static final String status = "status";
+  static final String airing = "airing";
+  static final String episodes = "episodes";
 }
 
 
 class Anime extends Equatable{
   final int malId;
   final String title;
-  final Map alternativeTitles;
+  final Map<String, List<String>> alternativeTitles;
   final String mainPicture;
   final DateTime startDate;
   final DateTime endDate;
@@ -28,8 +30,10 @@ class Anime extends Equatable{
   final DateTime createdAt;
   final DateTime updatedAt;
   final String mediaType;
-  final String status;
-  final List<String> genres;
+  final bool airing;
+  final int episodes;
+  final List<Genres> genres;
+  //final BuiltList<japi.GenericInfo> genres;
   final List<Dub> dubs;
   final List<String> arts;
 
@@ -44,7 +48,8 @@ class Anime extends Equatable{
     required this.createdAt,
     required this.updatedAt,
     required this.mediaType,
-    required this.status,
+    required this.airing,
+    required this.episodes,
     this.genres = const [],
     this.dubs = const [],
     this.arts = const []
@@ -62,7 +67,8 @@ class Anime extends Equatable{
     createdAt,
     updatedAt,
     mediaType,
-    status,
+    airing,
+    episodes,
     genres,
     dubs,
     arts
@@ -78,7 +84,8 @@ class Anime extends Equatable{
     AnimeFiels.createdAt: createdAt.toIso8601String(),
     AnimeFiels.updatedAt: updatedAt.toIso8601String(),
     AnimeFiels.mediaType: mediaType,
-    AnimeFiels.status: status,
+    AnimeFiels.airing: airing,
+    AnimeFiels.episodes: episodes,
   };
 
   factory Anime.fromDatabaseJson(Map<String, dynamic> data) => Anime(
@@ -91,7 +98,8 @@ class Anime extends Equatable{
     createdAt: DateTime.parse(data[AnimeFiels.createdAt]),
     updatedAt: DateTime.parse(data[AnimeFiels.updatedAt]),
     mediaType: data[AnimeFiels.mediaType],
-    status: data[AnimeFiels.status],
+    airing: data[AnimeFiels.airing],
+    episodes: data[AnimeFiels.episodes],
 
     // name: data['name'],
     // isDone: data['is_done'] == 0 ? false : true,
@@ -100,7 +108,7 @@ class Anime extends Equatable{
   Anime copy({
     int? malId,
     String? title,
-    Map? alternativeTitles,
+    Map<String, List<String>>? alternativeTitles,
     String? mainPicture,
     DateTime? startDate,
     DateTime? endDate,
@@ -108,8 +116,9 @@ class Anime extends Equatable{
     DateTime? createdAt,
     DateTime? updatedAt,
     String? mediaType,
-    String? status,
-    List<String>? genres,
+    bool? airing,
+    int? episodes,
+    List<Genres>? genres,
     List<Dub>? dubs,
     List<String>? arts,
 }) => Anime(
@@ -123,7 +132,8 @@ class Anime extends Equatable{
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       mediaType: mediaType ?? this.mediaType,
-      status: status ?? this.status,
+      airing: airing ?? this.airing,
+      episodes: episodes ?? this.episodes,
       genres: genres ?? this.genres,
       dubs: dubs ?? this.dubs,
       arts: arts ?? this.arts

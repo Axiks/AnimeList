@@ -48,7 +48,7 @@ class DBProvider {
               "${AnimeFiels.createdAt} TEXT NOT NULL,"
               "${AnimeFiels.updatedAt} TEXT NOT NULL,"
               "${AnimeFiels.mediaType} TEXT NOT NULL,"
-              "${AnimeFiels.status} TEXT NOT NULL"
+              "${AnimeFiels.airing} TEXT NOT NULL"
               ")");
 
 
@@ -75,12 +75,12 @@ class DBProvider {
               "${DubFiels.turnedOutSeriesCount} INTEGER NOT NULL"
               ")");
 
-          //Genres
-          await db.execute("CREATE TABLE $tableGenres ("
-              "${GenresFiels.id} INTEGER PRIMARY KEY AUTOINCREMENT ,"
-              "${GenresFiels.nameEng} TEXT NOT NULL,"
-              "${GenresFiels.nameUa} TEXT NOT NULL"
-              ")");
+          // //Genres
+          // await db.execute("CREATE TABLE $tableGenres ("
+          //     "${GenresFiels.id} INTEGER PRIMARY KEY AUTOINCREMENT ,"
+          //     "${GenresFiels.nameEng} TEXT NOT NULL,"
+          //     "${GenresFiels.nameUa} TEXT NOT NULL"
+          //     ")");
 
           //Tags
           await db.execute("CREATE TABLE $tableTags ("

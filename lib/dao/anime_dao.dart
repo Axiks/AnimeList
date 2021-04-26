@@ -18,7 +18,7 @@ class AnimeDao{
       AnimeFiels.createdAt,
       AnimeFiels.updatedAt,
       AnimeFiels.mediaType,
-      AnimeFiels.status
+      AnimeFiels.airing
     ];
 
     Database db = await dbProvider.initializeDB();
@@ -50,7 +50,7 @@ class AnimeDao{
       AnimeFiels.createdAt,
       AnimeFiels.updatedAt,
       AnimeFiels.mediaType,
-      AnimeFiels.status
+      AnimeFiels.airing
     ];
 
     Database db = await dbProvider.initializeDB();

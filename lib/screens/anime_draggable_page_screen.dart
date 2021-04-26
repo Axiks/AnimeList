@@ -77,7 +77,7 @@ class AnimeDraggableScrollableScreen extends StatelessWidget {
                                             horizontal: 12.0
                                         ),
                                         child: Text(
-                                          anime.alternativeTitles['ua'],
+                                          anime.alternativeTitles['ua']?.first.toString() ?? "",
                                           style: TextStyle(
                                               fontSize: 18,
                                               fontWeight: FontWeight.bold

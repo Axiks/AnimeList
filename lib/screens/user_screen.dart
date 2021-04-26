@@ -132,7 +132,7 @@ class AnimesWidget extends StatelessWidget {
                       children: [
                         Container(
                             child: Text(
-                              animes[index].alternativeTitles['ua'],
+                              animes[index].alternativeTitles['ua']?.first.toString() ?? "",
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: new TextStyle(
@@ -148,7 +148,7 @@ class AnimesWidget extends StatelessWidget {
                         ),
                         Container(
                             child: Text(
-                              animes[index].alternativeTitles['en'],
+                                animes[index].alternativeTitles['en']?.first.toString() ?? "",
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: new TextStyle(

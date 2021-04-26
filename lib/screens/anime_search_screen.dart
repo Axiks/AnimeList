@@ -189,7 +189,7 @@ class _AnimeSearchBarState extends State<AnimeSearchBar> {
                                     children: [
                                       Container(
                                           child: Text(
-                                            anime.alternativeTitles['ua'] ?? anime.title,
+                                            anime.alternativeTitles['ua']?.first.toString() ?? anime.title,
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                             style: new TextStyle(
@@ -205,7 +205,7 @@ class _AnimeSearchBarState extends State<AnimeSearchBar> {
                                       ),
                                       Container(
                                           child: Text(
-                                            anime.alternativeTitles['en'] ?? "",
+                                              anime.alternativeTitles['en']?.first.toString() ?? "",
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                             style: new TextStyle(

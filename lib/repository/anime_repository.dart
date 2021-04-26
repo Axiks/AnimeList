@@ -6,17 +6,21 @@ class AnimeRepository{
   Future<List<Anime>> animeSearch(String q) async {
     List<Anime> animes = await MyAnimeListRep().animeSearch(q);
     //AddToLocalDB
-    for(int i=0; i<animes.length; i++){
-      if(await _checkAnimeLocalDB(animes[i].malId) == false){
-        print("Add to DB Anime id: " + animes[i].malId.toString());
-        bool res = await _addAnimeLocalDB(animes[i]);
-        //print(res.toString());
-      }
-    }
+    // for(int i=0; i<animes.length; i++){
+    //   if(await _checkAnimeLocalDB(animes[i].malId) == false){
+    //     print("Add to DB Anime id: " + animes[i].malId.toString());
+    //     bool res = await _addAnimeLocalDB(animes[i]);
+    //     //print(res.toString());
+    //   }
+    // }
+    animeGet(animes[0].malId);
     return animes;
   }
 
   Future<Anime> animeGet(int id) async {
+    //return MyAnimeListRep().animeGet(id);
+    if(_checkAnimeLocalDB(id) == false){
+    }
     return MyAnimeListRep().animeGet(id);
   }
 

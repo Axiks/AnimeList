@@ -3,6 +3,7 @@ import 'package:anime_list_app/block/favorite_event.dart';
 import 'package:anime_list_app/models/anime.dart';
 import 'package:anime_list_app/models/art.dart';
 import 'package:anime_list_app/models/data.dart';
+import 'package:anime_list_app/models/genres.dart';
 import 'package:anime_list_app/models/user.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:expand_widget/expand_widget.dart';
@@ -48,7 +49,7 @@ class AnimePageScreen extends StatelessWidget {
                     ),
                     fit: BoxFit.fitWidth,
                   ),
-                  title: Text(anime.alternativeTitles['ua'] ?? anime.title),
+                  title: Text(anime.alternativeTitles['ua']?.first.toString() ?? anime.title),
                   stretchModes: [
                     StretchMode.zoomBackground,
                     StretchMode.blurBackground,
@@ -116,7 +117,7 @@ class HeadWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                    anime.alternativeTitles['ua'] ?? anime.title,
+                  anime.alternativeTitles['ua']?.first.toString() ??  anime.title,
                   style: new TextStyle(
                     fontSize: 14.0,
                     fontFamily: 'Roboto',
@@ -128,7 +129,7 @@ class HeadWidget extends StatelessWidget {
                   height: 2,
                 ),
                 Text(
-                    anime.alternativeTitles['en'] ?? "",
+                    anime.alternativeTitles['en']?.first.toString() ?? "",
                     style: new TextStyle(
                       fontSize: 11.0,
                       fontFamily: 'Roboto',
@@ -390,7 +391,7 @@ class DubWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Text(
-                              anime.alternativeTitles['ua'],
+                              anime.alternativeTitles['ua']?.first.toString() ?? "",
                               style: new TextStyle(
                                 fontSize: 14.0,
                                 fontFamily: 'Roboto',
@@ -479,7 +480,7 @@ class TagWidget extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 6.0),
                         child: Center(
                           child: Text(
-                            anime.genres[index],
+                            anime.genres[index].nameUa,
                             style: TextStyle(
                               color: new Color(0xFF7C7C7C),
                               fontSize: 12
