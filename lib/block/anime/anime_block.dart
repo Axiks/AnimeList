@@ -28,7 +28,10 @@ class AnimeBlock extends Bloc<AnimeEvent, AnimeState> {
 
   Stream<AnimeSuccess> _mapAimeGetToState(AnimeGet event) async* {
     int animeId = event.id;
-    List<Anime> animes = await AnimeDao().getAnime(animeId);
+    //List<Anime> animes = await AnimeDao().getAnime(animeId);
+    List<Anime> animes = [];
+    Anime anime = await AnimeRepository().animeGet(animeId);
+    animes.add(anime);
     AnimeSuccess state = AnimeSuccessFalse();
     if(animes.length == 1){
       state = AnimeSuccessTrue(anime: animes);

@@ -48,7 +48,8 @@ class DBProvider {
               "${AnimeFiels.createdAt} TEXT NOT NULL,"
               "${AnimeFiels.updatedAt} TEXT NOT NULL,"
               "${AnimeFiels.mediaType} TEXT NOT NULL,"
-              "${AnimeFiels.airing} TEXT NOT NULL"
+              "${AnimeFiels.airing} TEXT NOT NULL,"
+              "${AnimeFiels.episodes} TEXT NOT NULL"
               ")");
 
 

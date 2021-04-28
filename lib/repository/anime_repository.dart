@@ -13,14 +13,14 @@ class AnimeRepository{
     //     //print(res.toString());
     //   }
     // }
-    animeGet(animes[0].malId);
+    //animeGet(animes[0].malId);
     return animes;
   }
 
   Future<Anime> animeGet(int id) async {
     //return MyAnimeListRep().animeGet(id);
-    if(_checkAnimeLocalDB(id) == false){
-    }
+    // if(_checkAnimeLocalDB(id) == false){
+    // }
     return MyAnimeListRep().animeGet(id);
   }
 

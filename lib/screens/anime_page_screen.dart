@@ -1,3 +1,6 @@
+import 'package:anime_list_app/block/anime/anime_block.dart';
+import 'package:anime_list_app/block/anime/anime_event.dart';
+import 'package:anime_list_app/block/anime/anime_states.dart';
 import 'package:anime_list_app/block/anime_favorite_check.dart';
 import 'package:anime_list_app/block/favorite_event.dart';
 import 'package:anime_list_app/models/anime.dart';
@@ -17,68 +20,112 @@ import 'package:url_launcher/url_launcher.dart';
 class AnimePageScreen extends StatelessWidget {
   final Anime anime;
   const AnimePageScreen(this.anime, {Key? key}): super(key: key);
-
   // Anime anime = Data().getAnime()[4];
   // User neko = Data().getUser();
 
   @override
   Widget build(BuildContext context) {
     print("StatelessWidget");
+    // print("Anime Page Screen Genres: " + anime.genres.toString());
+
     String cover_src = "";
     if(anime.arts.length != 0){
       cover_src = anime.arts[0];
     }
     return Scaffold(
-      body: BlocProvider(
-        create: (BuildContext context) =>
-            AnimeFavoriteCheck(false),
-        child: CustomScrollView(
-            slivers: <Widget>[
-              SliverAppBar(
-                backgroundColor: Colors.black87, // status bar color
-                brightness: Brightness.light,
-                leading: Icon(Icons.chevron_left),
-                expandedHeight: 190,
-                stretch: true,
-                flexibleSpace: FlexibleSpaceBar(
-                  background: FittedBox(
-                    child: CachedNetworkImage(
-                      imageUrl: cover_src,
-                      placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
-                    ),
-                    fit: BoxFit.fitWidth,
-                  ),
-                  title: Text(anime.alternativeTitles['ua']?.first.toString() ?? anime.title),
-                  stretchModes: [
-                    StretchMode.zoomBackground,
-                    StretchMode.blurBackground,
-                    StretchMode.fadeTitle
-                  ],
-                ),
-              ),
-              SliverList(
-                  delegate: SliverChildListDelegate([
-                     SizedBox(height: 10),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: HeadWidget(anime),
-                    ),
-                    SizedBox(height: 0),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TagWidget(anime),
-                    ),
-                    SizedBox(height: 10),
-                    DescriptionWidget(anime),
-                    SizedBox(height: 10),
-                    DubWidget(anime),
-                    SizedBox(height: 10),
-                    ArtGalleryWidget(anime),
-                  ])
-              ),
-            ]),
+      body: MultiBlocProvider(
+        providers: [
+          BlocProvider<AnimeBlock>(
+            create: (BuildContext context) => AnimeBlock(AnimeInitial()),
+          ),
+          BlocProvider<AnimeFavoriteCheck>(
+            create: (BuildContext context) => AnimeFavoriteCheck(false),
+          ),
+        ],
+        child: BlocBuilder<AnimeBlock, AnimeState>(
+            builder: (context, state) {
+              AnimeGet animeAll = AnimeGet(4224);
+              context.read<AnimeBlock>().add(animeAll);
+
+              if(state is AnimeInitial){
+                return Center(
+                    child: Text("Initinal...")
+                );
+              }else if(state is AnimeSuccessFalse){
+                return Text("Помилка отримання даних");
+              }else if(state is AnimeSuccessTrue){
+                AnimeSuccessTrue as = state;
+                List<Anime> animes = as.anime;
+                Anime anime = animes.first;
+
+                return CustomScrollView(
+                    slivers: <Widget>[
+                      SliverAppBar(
+                        backgroundColor: Colors.black87, // status bar color
+                        brightness: Brightness.light,
+                        leading: Icon(Icons.chevron_left),
+                        expandedHeight: 190,
+                        stretch: true,
+                        flexibleSpace: FlexibleSpaceBar(
+                          background: FittedBox(
+                            child: CachedNetworkImage(
+                              imageUrl: cover_src,
+                              placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                              errorWidget: (context, url, error) => Icon(Icons.error),
+                            ),
+                            fit: BoxFit.fitWidth,
+                          ),
+                          title: Text(anime.alternativeTitles['ua']?.first.toString() ?? anime.title),
+                          stretchModes: [
+                            StretchMode.zoomBackground,
+                            StretchMode.blurBackground,
+                            StretchMode.fadeTitle
+                          ],
+                        ),
+                      ),
+                      SliverDownWidget(anime: anime),
+                    ]);
+              }else{
+                return Center(
+                    child: Text("Какая то лєва подія: " + state.toString())
+                );
+              }
+            }
+        )
       ),
+    );
+  }
+}
+
+class SliverDownWidget extends StatelessWidget {
+  const SliverDownWidget({
+    Key? key,
+    required this.anime,
+  }) : super(key: key);
+
+  final Anime anime;
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverList(
+        delegate: SliverChildListDelegate([
+          SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: HeadWidget(anime),
+          ),
+          SizedBox(height: 0),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TagWidget(anime),
+          ),
+          SizedBox(height: 10),
+          DescriptionWidget(anime),
+          SizedBox(height: 10),
+          DubWidget(anime),
+          SizedBox(height: 10),
+          ArtGalleryWidget(anime),
+        ])
     );
   }
 }
@@ -89,6 +136,7 @@ class HeadWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     initializeDateFormatting();
     final f = new DateFormat('d MMMM yyyy', 'uk_UA');
 
