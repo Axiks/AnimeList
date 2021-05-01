@@ -20,18 +20,9 @@ import 'package:url_launcher/url_launcher.dart';
 class AnimePageScreen extends StatelessWidget {
   final Anime anime;
   const AnimePageScreen(this.anime, {Key? key}): super(key: key);
-  // Anime anime = Data().getAnime()[4];
-  // User neko = Data().getUser();
 
   @override
   Widget build(BuildContext context) {
-    print("StatelessWidget");
-    // print("Anime Page Screen Genres: " + anime.genres.toString());
-
-    String cover_src = "";
-    if(anime.arts.length != 0){
-      cover_src = anime.arts[0];
-    }
     return Scaffold(
       body: MultiBlocProvider(
         providers: [
@@ -42,57 +33,77 @@ class AnimePageScreen extends StatelessWidget {
             create: (BuildContext context) => AnimeFavoriteCheck(false),
           ),
         ],
-        child: BlocBuilder<AnimeBlock, AnimeState>(
-            builder: (context, state) {
-              AnimeGet animeAll = AnimeGet(4224);
-              context.read<AnimeBlock>().add(animeAll);
+        child: AnimeBlocEngineWidget(animeId: anime.malId),
+      ),
+    );
+  }
+}
 
-              if(state is AnimeInitial){
-                return Center(
-                    child: Text("Initinal...")
-                );
-              }else if(state is AnimeSuccessFalse){
-                return Text("Помилка отримання даних");
-              }else if(state is AnimeSuccessTrue){
-                AnimeSuccessTrue as = state;
-                List<Anime> animes = as.anime;
-                Anime anime = animes.first;
+class AnimeBlocEngineWidget extends StatelessWidget {
+  const AnimeBlocEngineWidget({
+    Key? key,
+    required this.animeId,
+  }) : super(key: key);
+  final int animeId;
 
-                return CustomScrollView(
-                    slivers: <Widget>[
-                      SliverAppBar(
-                        backgroundColor: Colors.black87, // status bar color
-                        brightness: Brightness.light,
-                        leading: Icon(Icons.chevron_left),
-                        expandedHeight: 190,
-                        stretch: true,
-                        flexibleSpace: FlexibleSpaceBar(
-                          background: FittedBox(
-                            child: CachedNetworkImage(
-                              imageUrl: cover_src,
-                              placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                              errorWidget: (context, url, error) => Icon(Icons.error),
-                            ),
-                            fit: BoxFit.fitWidth,
+  @override
+  Widget build(BuildContext context) {
+    //Get Anime
+    AnimeGet animeBlo = AnimeGet(animeId);
+    context.read<AnimeBlock>().add(animeBlo);
+
+    return BlocBuilder<AnimeBlock, AnimeState>(
+        builder: (context, state) {
+          if(state is AnimeInitial){
+            return Center(
+                child: Text("Loading")
+            );
+          }else if(state is AnimeSuccessFalse){
+            return Text("Помилка отримання даних");
+          }else if(state is AnimeSuccessTrue){
+            AnimeSuccessTrue as = state;
+            List<Anime> animes = as.anime;
+            Anime anime = animes.first;
+            //Get CheckFav
+            User neko = Data().getUser();
+            FavoriteGet me = FavoriteGet(anime, neko);
+            context.read<AnimeFavoriteCheck>().add(me);
+
+            return CustomScrollView(
+                slivers: <Widget>[
+                  SliverAppBar(
+                    backgroundColor: Colors.black87, // status bar color
+                    brightness: Brightness.light,
+                    leading: Icon(Icons.chevron_left),
+                    expandedHeight: 190,
+                    stretch: true,
+                    flexibleSpace: FlexibleSpaceBar(
+                      background: Visibility(
+                        child: FittedBox(
+                          child: CachedNetworkImage(
+                            imageUrl: anime.mainPicture,
+                            placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                            errorWidget: (context, url, error) => Icon(Icons.error),
                           ),
-                          title: Text(anime.alternativeTitles['ua']?.first.toString() ?? anime.title),
-                          stretchModes: [
-                            StretchMode.zoomBackground,
-                            StretchMode.blurBackground,
-                            StretchMode.fadeTitle
-                          ],
+                          fit: BoxFit.fitWidth,
                         ),
                       ),
-                      SliverDownWidget(anime: anime),
-                    ]);
-              }else{
-                return Center(
-                    child: Text("Какая то лєва подія: " + state.toString())
-                );
-              }
-            }
-        )
-      ),
+                      title: Text(anime.alternativeTitles['ua']?.first.toString() ?? anime.title),
+                      stretchModes: [
+                        StretchMode.zoomBackground,
+                        StretchMode.blurBackground,
+                        StretchMode.fadeTitle
+                      ],
+                    ),
+                  ),
+                  SliverDownWidget(anime: anime),
+                ]);
+          }else{
+            return Center(
+                child: Text("Какая то лєва подія: " + state.toString())
+            );
+          }
+        }
     );
   }
 }
@@ -114,7 +125,13 @@ class SliverDownWidget extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: HeadWidget(anime),
           ),
-          SizedBox(height: 0),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+              onPressed: () => Navigator.pushNamed(context, '/translate/${anime.malId}'),
+              child: Text("Перекласти"),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TagWidget(anime),
@@ -139,10 +156,6 @@ class HeadWidget extends StatelessWidget {
 
     initializeDateFormatting();
     final f = new DateFormat('d MMMM yyyy', 'uk_UA');
-
-    User neko = Data().getUser();
-    FavoriteGet eve = FavoriteGet(anime, neko);
-    context.read<AnimeFavoriteCheck>().add(eve);
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -176,27 +189,47 @@ class HeadWidget extends StatelessWidget {
                 SizedBox(
                   height: 2,
                 ),
-                Text(
-                    anime.alternativeTitles['en']?.first.toString() ?? "",
+                Visibility(
+                  child: Text(
+                      anime.alternativeTitles['en']?.first.toString() ?? "",
+                      style: new TextStyle(
+                        fontSize: 11.0,
+                        fontFamily: 'Roboto',
+                        color: new Color(0xFF7C7C7C),
+                      ),
+                  ),
+                  visible: anime.alternativeTitles['ua']?.first.isNotEmpty ?? false,
+                ),
+                SizedBox(
+                  height: 2,
+                ),
+                Visibility(
+                  child: Text(
+                    anime.alternativeTitles['jp']?.first.toString() ?? "",
                     style: new TextStyle(
                       fontSize: 11.0,
                       fontFamily: 'Roboto',
                       color: new Color(0xFF7C7C7C),
                     ),
+                  ),
+                  visible: anime.alternativeTitles['jp']?.first.isNotEmpty ?? false,
                 ),
                 SizedBox(
                   height: 6,
                 ),
                 Text(
-                    '24 серій',
+                    anime.episodes.toString() + ' серій',
                     style: new TextStyle(
                       fontSize: 12.0,
                       fontFamily: 'Roboto',
                       color: new Color(0xFF7C7C7C),
                     ),
                 ),
+                SizedBox(
+                  height: 2,
+                ),
                 Text(
-                    f.format(anime.startDate),
+                    f.format(anime.startDate) + (" - " + f.format(anime.endDate)),
                     // f.format(anime.startDate) + ' - ' + f.format(anime.endDate),
                     style: new TextStyle(
                       fontSize: 12.0,
@@ -207,8 +240,7 @@ class HeadWidget extends StatelessWidget {
                 SizedBox(
                   height: 2,
                 ),
-                FavAnimeWidget(),
-                //TestWidget(),
+                FavAnimeWidget(anime),
               ],
             ),
           ),
@@ -218,46 +250,10 @@ class HeadWidget extends StatelessWidget {
   }
 }
 
-class TestWidget extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: BlocProvider(
-        create: (BuildContext context) =>
-        AnimeFavoriteCheck(false),
-        child: TestBlockWidget()
-      )
-    );
-  }
-}
-
-class TestBlockWidget extends StatefulWidget {
-  @override
-  _TestBlockWidget createState() => _TestBlockWidget();
-}
-
-class _TestBlockWidget extends State<TestBlockWidget> {
-  Anime anime = Data().getAnime()[4];
-  User neko = Data().getUser();
-
-  @override
-  Widget build(BuildContext context) {
-    FavoriteGet me = FavoriteGet(anime, neko);
-    context.read<AnimeFavoriteCheck>().add(me);
-
-    return Container(
-      child: BlocBuilder<AnimeFavoriteCheck, bool>(
-          builder: (context, state) {
-            return Center(
-              child: Text('$state', style: Theme.of(context).textTheme.headline1),
-            );
-          }
-      )
-    );
-  }
-}
-
 class FavAnimeWidget extends StatefulWidget {
+  final Anime anime;
+  const FavAnimeWidget(this.anime);
+
   @override
   _FavAnimeWidget createState() => _FavAnimeWidget();
 }
@@ -268,11 +264,10 @@ class _FavAnimeWidget extends State<FavAnimeWidget> {
     color: Colors.red,
   );
 
-
   @override
   Widget build(BuildContext context) {
-    //User neko = Data().getUser();
-    //List<Anime> nekoFavList = neko.favoriteAnime;
+    User neko = Data().getUser();
+    Anime anime = widget.anime;
 
     _thisWillAffectTheState() {
       _affectedByStateChange = new Icon(Icons.favorite, color: Colors.red);
@@ -281,8 +276,9 @@ class _FavAnimeWidget extends State<FavAnimeWidget> {
     _thisWillAlsoAffectTheState() {
       _affectedByStateChange = new Icon(Icons.favorite_outline, color: Colors.grey);
       //Add Fav
-      // FavoriteAdded eve = FavoriteAdded(anime, user);
-      // context.read<AnimeFavoriteCheck>().add(eve);
+      // User neko = Data().getUser();
+      // // FavoriteAdded eve = FavoriteAdded(widget.anime, neko);
+      // // context.read<AnimeFavoriteCheck>().add(eve);
     }
 
     return BlocBuilder<AnimeFavoriteCheck, bool>(
@@ -293,11 +289,18 @@ class _FavAnimeWidget extends State<FavAnimeWidget> {
           icon: _affectedByStateChange,
           onPressed: (){
             setState(() {
-
               if(state){
+                //Delete in favorite
+                FavoriteDeleted eve = FavoriteDeleted(widget.anime, neko);
+                context.read<AnimeFavoriteCheck>().add(eve);
+                //Change icon
                 _thisWillAffectTheState();
               }
               else{
+                //Add to favorite
+                FavoriteAdded eve = FavoriteAdded(widget.anime, neko);
+                context.read<AnimeFavoriteCheck>().add(eve);
+                //Change icon
                 _thisWillAlsoAffectTheState();
               }
               //_favAnimeState = !_favAnimeState;
@@ -305,7 +308,7 @@ class _FavAnimeWidget extends State<FavAnimeWidget> {
           }
       );
     });
-}
+  }
 }
 
 class DescriptionWidget extends StatelessWidget {

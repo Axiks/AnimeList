@@ -33,7 +33,6 @@ class Anime extends Equatable{
   final bool airing;
   final int episodes;
   final List<Genres> genres;
-  //final BuiltList<japi.GenericInfo> genres;
   final List<Dub> dubs;
   final List<String> arts;
 
@@ -98,7 +97,7 @@ class Anime extends Equatable{
     createdAt: DateTime.parse(data[AnimeFiels.createdAt]),
     updatedAt: DateTime.parse(data[AnimeFiels.updatedAt]),
     mediaType: data[AnimeFiels.mediaType],
-    airing: data[AnimeFiels.airing],
+    airing: data[AnimeFiels.airing] == 'true',
     episodes: data[AnimeFiels.episodes],
 
     // name: data['name'],

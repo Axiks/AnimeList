@@ -1,8 +1,12 @@
+import 'package:anime_list_app/block/anime/anime_block.dart';
+import 'package:anime_list_app/block/anime/anime_event.dart';
+import 'package:anime_list_app/block/anime/anime_states.dart';
 import 'package:anime_list_app/screens/anime_list_widget.dart';
 import 'package:anime_list_app/screens/anime_draggable_page_screen.dart';
 import 'package:anime_list_app/screens/anime_page_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'models/anime.dart';
 import 'models/data.dart';
@@ -10,7 +14,6 @@ import 'models/data.dart';
 class AnimeListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    List<Anime> animes = Data().getAnime();
     return  Scaffold(
       appBar: AppBar(
         title: Text("Neko List App ;3"),
@@ -21,7 +24,31 @@ class AnimeListWidget extends StatelessWidget {
           IconButton(icon: Icon(Icons.search), onPressed: (){})
         ],
       ),
-        body: AnimesListWidget(animes),
+        body: BlocProvider<AnimeBlock>(
+          create: (BuildContext context) => AnimeBlock(AnimeInitial()),
+            child: BlocBuilder<AnimeBlock, AnimeState>(
+                builder: (context, state) {
+                  AnimeGetAll animeAll = AnimeGetAll();
+                  context.read<AnimeBlock>().add(animeAll);
+                  if(state is AnimeInitial){
+                    return Center(
+                        child: Text("Initinal...")
+                    );
+                  }else if(state is AnimeSuccessFalse){
+                    return Text("Помилка отримання даних");
+                  }else if(state is AnimeSuccessTrue){
+                    AnimeSuccessTrue as = state;
+                    List<Anime> animes = as.anime;
+                    return AnimesListWidget(animes);
+                  }else{
+                    return Center(
+                        child: Text("Какая то лєва подія: " + state.toString())
+                    );
+                  }
+                }
+            )
+        )
+        //AnimesListWidget(animes),
         );
   }
 }
@@ -149,33 +176,4 @@ class AnimeDraggableScrollable extends StatelessWidget{
   Widget cardsWidget(itemIndex)=> Container(
 
   );
-}
-
-class DataSearch extends SearchDelegate<String>{
-
-  
-  @override
-  List<Widget> buildActions(BuildContext context) {
-    // TODO: implement buildActions
-    throw UnimplementedError();
-  }
-
-  @override
-  Widget buildLeading(BuildContext context) {
-    // TODO: implement buildLeading
-    throw UnimplementedError();
-  }
-
-  @override
-  Widget buildResults(BuildContext context) {
-    // TODO: implement buildResults
-    throw UnimplementedError();
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    // TODO: implement buildSuggestions
-    throw UnimplementedError();
-  }
-  
 }

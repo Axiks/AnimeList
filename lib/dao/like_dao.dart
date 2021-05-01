@@ -21,7 +21,9 @@ class LikeDao {
   //Delete Like records
   Future<int> deleteFavorite(Favorite favorite) async {
     Database db = await dbProvider.initializeDB();
+    print("Favorite db destroy: FawId = " + favorite.id.toString());
     var result = await db.delete(_tableName, where: '${FavoriteFiels.id} = ?', whereArgs: [favorite.id]);
+    print("Destroy result: " + result.toString());
     return result;
   }
 
@@ -36,6 +38,7 @@ class LikeDao {
     );
 
     if (result.length > 0) {
+      print("checkFavorite obj: " + result.first.toString());
       return true;
     }
     return false;

@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 
-final String tableAlternativeTitleName = 'alternative_title_name';
+final String tableAlternativeTitleDescription = 'alternative_title_description';
 
-class AlternativeTitleFiels{
+class AlternativeDescriptionFields{
   static final String id = "_id";
   static final String animeId = "anime_id";
   static final String userId = "user_id";
@@ -11,7 +11,7 @@ class AlternativeTitleFiels{
   static final String createdAt = "createdAt";
 }
 
-class AlternativeTitle extends Equatable{
+class AlternativeDescription extends Equatable{
   final int id;
   final int animeId;
   final int userId;
@@ -19,7 +19,7 @@ class AlternativeTitle extends Equatable{
   final String body;
   final DateTime createdAt;
 
-  const AlternativeTitle({
+  const AlternativeDescription({
     required this.id,
     required this.animeId,
     required this.userId,
@@ -29,21 +29,21 @@ class AlternativeTitle extends Equatable{
   });
 
   Map<String, Object> toJson() => {
-    AlternativeTitleFiels.id : id,
-    AlternativeTitleFiels.animeId: animeId,
-    AlternativeTitleFiels.userId: userId,
-    AlternativeTitleFiels.lang: lang,
-    AlternativeTitleFiels.body: body,
-    AlternativeTitleFiels.createdAt: createdAt.toIso8601String(),
+    AlternativeDescriptionFields.id : id,
+    AlternativeDescriptionFields.animeId: animeId,
+    AlternativeDescriptionFields.userId: userId,
+    AlternativeDescriptionFields.lang: lang,
+    AlternativeDescriptionFields.body: body,
+    AlternativeDescriptionFields.createdAt: createdAt.toIso8601String(),
   };
 
-  factory AlternativeTitle.fromDatabaseJson(Map<String, dynamic> data) => AlternativeTitle(
-    id: data[AlternativeTitleFiels.id],
-    animeId: data[AlternativeTitleFiels.animeId],
-    userId: data[AlternativeTitleFiels.userId],
-    lang: data[AlternativeTitleFiels.lang],
-    body: data[AlternativeTitleFiels.body],
-    createdAt: DateTime.parse(data[AlternativeTitleFiels.createdAt]),
+  factory AlternativeDescription.fromDatabaseJson(Map<String, dynamic> data) => AlternativeDescription(
+    id: data[AlternativeDescriptionFields.id],
+    animeId: data[AlternativeDescriptionFields.animeId],
+    userId: data[AlternativeDescriptionFields.userId],
+    lang: data[AlternativeDescriptionFields.lang],
+    body: data[AlternativeDescriptionFields.body],
+    createdAt: DateTime.parse(data[AlternativeDescriptionFields.createdAt]),
   );
 
   @override
@@ -57,14 +57,14 @@ class AlternativeTitle extends Equatable{
     createdAt,
   ];
 
-  AlternativeTitle copy({
+  AlternativeDescription copy({
     int? id,
     int? animeId,
     int? userId,
     String? lang,
     String? body,
     DateTime? createdAt
-}) => AlternativeTitle(
+}) => AlternativeDescription(
     id: id ?? this.id,
     animeId: animeId ?? this.animeId,
     userId: userId ?? this.userId,

@@ -26,23 +26,25 @@ class AnimeFavoriteCheck extends Bloc<FavoriteEvent, bool> {
     }
   }
 
+  Stream<bool>  _mapGetAllUserFavorites(FavoriteGet event) async* {
+    Anime anime_comparison = event.anime;
+    User neko = event.user;
+
+    print("Anime id, get state: " + anime_comparison.malId.toString());
+    Favorite favorite = Favorite(
+      anime: anime_comparison,
+      user: neko,
+    );
+    bool btnStatus = false;
+    btnStatus = await LikeDao().checkFavorite(favorite);
+    yield btnStatus;
+  }
+
   Stream<bool>  _mapFavoritesGetToState(FavoriteGet event) async* {
     Anime anime_comparison = event.anime;
     User neko = event.user;
-    //List<Anime> favoriteAnimeList = neko.favoriteAnime;
-    // print("Anime, id: " + anime_comparison.malId.toString());
-    // bool btnStatus = false;
-    // for(int i=0; i < favoriteAnimeList.length; i++){
-    //   print("Anime check id: " + favoriteAnimeList[i].malId.toString());
-    //   if(anime_comparison.malId.compareTo(favoriteAnimeList[i].malId) == 0){
-    //     print("true");
-    //     btnStatus = true;
-    //     break;
-    //   }
-    // }
-    // yield btnStatus;
 
-    print("Anime, id: " + anime_comparison.malId.toString());
+    print("Anime id, get state: " + anime_comparison.malId.toString());
     Favorite favorite = Favorite(
       anime: anime_comparison,
       user: neko,
@@ -71,16 +73,17 @@ class AnimeFavoriteCheck extends Bloc<FavoriteEvent, bool> {
   Stream<bool>  _mapFavoriteDeletedToState(FavoriteDeleted event) async* {
     Anime anime_comparison = event.anime;
     User neko = event.user;
-    List<Anime> favoriteAnimeList = neko.favoriteAnime;
     print("Anime, id: " + anime_comparison.malId.toString());
+    Favorite favorite = Favorite(
+      anime: anime_comparison,
+      user: neko,
+    );
     bool btnStatus = false;
-    for(int i=0; i < favoriteAnimeList.length; i++){
-      print("Anime check id: " + favoriteAnimeList[i].malId.toString());
-      if(anime_comparison.malId.compareTo(favoriteAnimeList[i].malId) == 0){
-        print("true");
-        btnStatus = true;
-        break;
-      }
+    Favorite f = await LikeDao().addFavorite(favorite);
+    if (f.id != 0){
+      Favorite favoritePlusId = favorite.copy(id: f.id);
+      int count = await LikeDao().deleteFavorite(favoritePlusId);
+      //btnStatus = count > 0 ? false : true;
     }
     yield btnStatus;
   }

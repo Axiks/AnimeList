@@ -21,7 +21,13 @@ class AnimeRepository{
     //return MyAnimeListRep().animeGet(id);
     // if(_checkAnimeLocalDB(id) == false){
     // }
-    return MyAnimeListRep().animeGet(id);
+    Anime animes = await MyAnimeListRep().animeGet(id);
+    if(await _checkAnimeLocalDB(id) == false){
+          print("Add to DB Anime id: " + id.toString());
+          bool res = await _addAnimeLocalDB(animes);
+          //print(res.toString());
+        }
+    return animes;
   }
 
   Future<bool> _checkAnimeLocalDB(int animeId) async {

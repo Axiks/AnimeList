@@ -55,10 +55,10 @@ class MyAnimeListRep{
     DateTime dtEnd = DateTime.utc(1900, 1, 1);
     BuiltList<japi.GenericInfo> g =  result.genres;
 
-    if(dtStart==null){
+    if(result.aired.from != null){
       dtStart = DateFormat('yyyy-MM-ddTHH:mm:ss+').parse(result.aired.from);
     }
-    if(dtEnd==null){
+    if(result.aired.to != null){
       dtEnd = DateFormat('yyyy-MM-ddTHH:mm:ss+').parse(result.aired.to);
     }
 

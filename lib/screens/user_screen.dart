@@ -1,36 +1,49 @@
+import 'package:anime_list_app/block/anime/anime_block.dart';
+import 'package:anime_list_app/block/anime/anime_states.dart';
+import 'package:anime_list_app/block/anime_favorite_check.dart';
 import 'package:anime_list_app/models/anime.dart';
 import 'package:anime_list_app/models/data.dart';
 import 'package:anime_list_app/models/user.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UserScreen extends StatelessWidget{
   User adrian = Data().getUser();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child:
-          Column(
-            children:  <Widget>[
-              Container(child: ProfileWidget(adrian)),
-              Container(
-                child: SizedBox(
-                  height: 10,
-                ),
-              ),
-              Container(
-                child: Text(
-                  "Favorite Anime",
-                  style: new TextStyle(
-                      fontSize: 21.0
+      body: MultiBlocProvider(
+        providers: [
+          BlocProvider<AnimeBlock>(
+            create: (BuildContext context) => AnimeBlock(AnimeInitial()),
+          ),
+          BlocProvider<AnimeFavoriteCheck>(
+            create: (BuildContext context) => AnimeFavoriteCheck(false),
+          ),
+        ],
+        child:  SingleChildScrollView(
+            child: Column(
+              children:  <Widget>[
+                Container(child: ProfileWidget(adrian)),
+                Container(
+                  child: SizedBox(
+                    height: 10,
                   ),
                 ),
-              ),
-              AnimesWidget(adrian.favoriteAnime)
-            ],
-          )
-      )
+                Container(
+                  child: Text(
+                    "Favorite Anime",
+                    style: new TextStyle(
+                        fontSize: 21.0
+                    ),
+                  ),
+                ),
+                AnimesWidget(adrian.favoriteAnime)
+              ],
+            )
+        )
+      ),
     );
   }
 
@@ -97,7 +110,25 @@ class AnimesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return BlocBuilder<AnimeBlock, AnimeState>(
+    builder: (context, state) {
+      if(state is AnimeInitial){
+        return Center(
+            child: Text("Loading")
+        );
+      }else if(state is AnimeSuccessFalse){
+        return Text("Помилка отримання даних");
+      }else if(state is AnimeSuccessTrue){
+        return Text("Success");
+      }else{
+        return Center(
+            child: Text("Какая то лєва подія: " + state.toString())
+        );
+      }
+    });
+
+
+      Container(
       child: ListView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),

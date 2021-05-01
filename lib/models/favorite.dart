@@ -30,7 +30,7 @@ class Favorite {
   List<Object> get props => [anime, user];
 
   Map<String, Object> toJson() => {
-    FavoriteFiels.id: id ?? 0,
+    // FavoriteFiels.id: id ?? 0,
     FavoriteFiels.userId: user.id,
     FavoriteFiels.animeId: anime.malId,
     FavoriteFiels.time: createdTime ?? DateTime.now().toIso8601String(),

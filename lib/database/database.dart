@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:anime_list_app/models/alternativeTitleDescription.dart';
 import 'package:anime_list_app/models/alternativeTitleName.dart';
 import 'package:anime_list_app/models/anime.dart';
 import 'package:anime_list_app/models/art.dart';
@@ -18,7 +19,7 @@ import 'package:path/path.dart';
 
 class DBProvider {
   static final _databasename = "anime_list.db";
-  static final _databaseersion = 3;
+  static final _databaseersion = 1;
   //var  db = await initializeDB();
 
   Future<Database> initializeDB() async {
@@ -64,8 +65,20 @@ class DBProvider {
           await db.execute("CREATE TABLE $tableAlternativeTitleName ("
               "${AlternativeTitleFiels.id} INTEGER PRIMARY KEY AUTOINCREMENT ,"
               "${AlternativeTitleFiels.animeId} INTEGER NOT NULL,"
+              "${AlternativeTitleFiels.userId} INTEGER NOT NULL,"
               "${AlternativeTitleFiels.lang} TEXT NOT NULL,"
               "${AlternativeTitleFiels.body} TEXT NOT NULL"
+              "${AlternativeTitleFiels.createdAt} TEXT NOT NULL,"
+              ")");
+
+          //Alternative Title Name
+          await db.execute("CREATE TABLE $tableAlternativeTitleDescription ("
+              "${AlternativeDescriptionFields.id} INTEGER PRIMARY KEY AUTOINCREMENT ,"
+              "${AlternativeDescriptionFields.animeId} INTEGER NOT NULL,"
+              "${AlternativeDescriptionFields.userId} INTEGER NOT NULL,"
+              "${AlternativeDescriptionFields.lang} TEXT NOT NULL,"
+              "${AlternativeDescriptionFields.body} TEXT NOT NULL"
+              "${AlternativeDescriptionFields.createdAt} TEXT NOT NULL,"
               ")");
 
           //Dubs

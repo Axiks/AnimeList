@@ -1,5 +1,6 @@
 import 'package:anime_list_app/nav.dart';
 import 'package:anime_list_app/screens/image_view_screen.dart';
+import 'package:anime_list_app/screens/translate_anime_info_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'home.dart';
@@ -30,6 +31,11 @@ class RouteWidget extends StatelessWidget {
         if(path[1] == 'anime') {
           return new MaterialPageRoute(builder: (context) => new AnimePageWidget(),
           settings: routeSetting);
+        }
+
+        if(path[1] == 'translate') {
+          return new MaterialPageRoute(builder: (context) => new TranslateAnimeInfoScreen(int.tryParse(path[2]) ?? 0),
+              settings: routeSetting);
         }
 
         return _errorRoute();
