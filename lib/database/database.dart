@@ -1,8 +1,9 @@
 import 'dart:io';
-import 'package:anime_list_app/models/alternativeTitleDescription.dart';
-import 'package:anime_list_app/models/alternativeTitleName.dart';
+import 'file:///C:/Users/Niko/Desktop/Project/AnimeList/lib/models/connectors/alternative/alternativeTitleDescription.dart';
+import 'file:///C:/Users/Niko/Desktop/Project/AnimeList/lib/models/connectors/alternative/alternativeTitleName.dart';
 import 'package:anime_list_app/models/anime.dart';
 import 'package:anime_list_app/models/art.dart';
+import 'package:anime_list_app/models/connectors/alternative/alternativeTitle.dart';
 import 'package:anime_list_app/models/connectors/anime_arts.dart';
 import 'package:anime_list_app/models/connectors/anime_dubs.dart';
 import 'package:anime_list_app/models/connectors/anime_genres.dart';
@@ -73,12 +74,12 @@ class DBProvider {
 
           //Alternative Title Name
           await db.execute("CREATE TABLE $tableAlternativeTitleDescription ("
-              "${AlternativeDescriptionFields.id} INTEGER PRIMARY KEY AUTOINCREMENT ,"
-              "${AlternativeDescriptionFields.animeId} INTEGER NOT NULL,"
-              "${AlternativeDescriptionFields.userId} INTEGER NOT NULL,"
-              "${AlternativeDescriptionFields.lang} TEXT NOT NULL,"
-              "${AlternativeDescriptionFields.body} TEXT NOT NULL"
-              "${AlternativeDescriptionFields.createdAt} TEXT NOT NULL,"
+              "${AlternativeTitleFiels.id} INTEGER PRIMARY KEY AUTOINCREMENT ,"
+              "${AlternativeTitleFiels.animeId} INTEGER NOT NULL,"
+              "${AlternativeTitleFiels.userId} INTEGER NOT NULL,"
+              "${AlternativeTitleFiels.lang} TEXT NOT NULL,"
+              "${AlternativeTitleFiels.body} TEXT NOT NULL"
+              "${AlternativeTitleFiels.createdAt} TEXT NOT NULL,"
               ")");
 
           //Dubs

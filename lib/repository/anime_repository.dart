@@ -26,7 +26,7 @@ class AnimeRepository{
           print("Add to DB Anime id: " + id.toString());
           bool res = await _addAnimeLocalDB(animes);
           //print(res.toString());
-        }
+    }
     return animes;
   }
 
