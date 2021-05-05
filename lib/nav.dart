@@ -1,3 +1,4 @@
+import 'package:anime_list_app/screens/anime_add_screen.dart';
 import 'package:anime_list_app/screens/gellery_screen.dart';
 import 'package:anime_list_app/screens/user_screen.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,8 @@ class _NavState extends State<Nav> {
   @override
   int _currentIndex = 0;
   List<Widget> _widgetOptions = <Widget>[
-    Center(child: Text('Activites')),
+    // Center(child: Text('Activites')),
+    AnimeAddScreen(),
     AnimeListWidget(),
     GalleryScreen(),
     UserScreen(),
@@ -56,7 +58,6 @@ class _NavState extends State<Nav> {
           setState(() {
             _currentIndex = index;
           });
-
         },
       ),
     );

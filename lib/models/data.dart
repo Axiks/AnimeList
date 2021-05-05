@@ -1,8 +1,11 @@
+import 'package:anime_list_app/models/genres.dart';
 import 'package:anime_list_app/models/user.dart';
 import 'package:equatable/equatable.dart';
 
 import 'anime.dart';
 import 'dub.dart';
+
+
 class Data extends Equatable{
   User adrian = User(
     id: 0,
@@ -63,19 +66,21 @@ class Data extends Equatable{
     Anime reZero = Anime(
       malId: 31240,
       title: 'Re:Zero kara Hajimeru Isekai Seikatsu',
-      alternativeTitles: <String, String>{
-        'en': 'Re:ZERO -Starting Life in Another World-',
-        'jp': 'Re：ゼロから始める異世界生活',
-        'ua': 'Переродження: Життя з нуля в іншому світі'
-      },
-      mainPicture: "https://nyaa.shikimori.one/system/animes/original/31240.jpg",
+      // alternativeTitles: <String, List<String>>{
+      //   'en': ['Re:ZERO -Starting Life in Another World-'],
+      //   'jp': ['Re：ゼロから始める異世界生活'],
+      //   'ua': ['Переродження: Життя з нуля в іншому світі'],
+      // },
+        alternativeTitles: [],
+        mainPicture: "https://nyaa.shikimori.one/system/animes/original/31240.jpg",
       synopsis: "Продовження другого сезону пригод потраплянця, який хоче врятувати всіх за будь-яку ціну. Мешканці маєтку Розвааля досі ув'язнені в так званому Святилищі, а нашим героям протистоїть воля старовинної книги. Емілія досі намагається пройти випробування, аби звільнити всіх, але відкриваються все нові сюжетні повороти, які як тільки можуть ускладнюють життя нашим героям. ",
       startDate: DateTime(2016, 04, 04),
       endDate: DateTime(2016, 12, 28),
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
       mediaType: 'tv',
-      status: 'finished_airing',
+        airing: true,
+        episodes: 24,
       arts: [
         'https://camo-v2.shikimori.one/?filename=re_zero_kara_hajimeru_isekai_seikatsu_1920x1080_john.doe_713836.jpg&url=https://files.yande.re/image/477dac9da5506921aaaf063b5a45f9ef/yande.re%20713836%20animal_ears%20halloween%20maid%20nekomimi%20pantyhose%20ram_%28re_zero%29%20re_zero_kara_hajimeru_isekai_seikatsu%20rem_%28re_zero%29%20tagme%20tail%20wallpaper.jpg',
         'https://camo-v2.shikimori.one/?filename=re_zero_kara_hajimeru_isekai_seikatsu_1200x1687_hiroimo2_728231.png&url=https://files.yande.re/image/b70769fd95b7d3d6dc3eed5032499489/yande.re%20728231%20maid%20re_zero_kara_hajimeru_isekai_seikatsu%20rem_%28re_zero%29%20skirt_lift%20stockings%20thighhighs%20twinbox.png',
@@ -90,10 +95,10 @@ class Data extends Equatable{
         'https://camo-v2.shikimori.one/?filename=re_zero_kara_hajimeru_isekai_seikatsu_1800x3400_Mr_GT_684284.png&url=https://files.yande.re/image/d286f0d77a6e95d04f58b3eaa4a2a96c/yande.re%20684284%20animal_ears%20happycloud%20re_zero_kara_hajimeru_isekai_seikatsu%20rem_%28re_zero%29%20seifuku%20tail%20thighhighs.png',
       ],
       genres: [
-        'Психологічне',
-        'Драма',
-        'Триллер',
-        'Фентезі',
+        Genres.psychological,
+        Genres.drama,
+        Genres.thriller,
+        Genres.fantasy,
       ],
       dubs: [
         reZero1,
@@ -129,11 +134,12 @@ class Data extends Equatable{
     Anime haiyore = Anime(
         malId: 11785,
         title: 'Haiyore! Nyaruko-san',
-        alternativeTitles: <String, String>{
-          'en': 'Haiyore! Nyaruko-san ',
-          'jp': '這いよれ！ニャル子さん',
-          'ua': 'Повзучий Хаос! Ньяруко '
-        },
+        // alternativeTitles: <String, List<String>>{
+        //   'en': ['Haiyore! Nyaruko-san'],
+        //   'jp': ['這いよれ！ニャル子さん'],
+        //   'ua': ['Повзучий Хаос! Ньяруко '],
+        // },
+        alternativeTitles: [],
         mainPicture: "https://nyaa.shikimori.one/system/animes/original/11785.jpg",
         synopsis: "Чи є людство єдиною розумно расою у всесвіті? Що ховає від нас холодна безодня космічного простору? Чи може прибульці вже тут і ховаються в тінях, виконуючи свої справи? Люди вигадали багато варіантів відповідей, багато теорій. Але, реальність виявилася іншою, ближчою до творчості Лавкрафта. Ясака Махіро, звичайний хлопець з холодним розумом та логічним мисленням, однієї ночі стає жертвою спроби викрадення прибульцями для їхніх сумнівних цілей. Чи може він вижити, зберігши психічне здоров'я і яке місце займає Земля у всесвіті? Так чи інакше, тепер йому доведеться жити з таємничою дівчиною, чия екстравагантна поведінка призведе до багатьох особливих ситуацій, і яку він постійно тикає виделкою.",
         startDate: DateTime(2012, 05, 10),
@@ -141,7 +147,8 @@ class Data extends Equatable{
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
         mediaType: 'tv',
-        status: 'finished_airing',
+        airing: false,
+        episodes: 24,
         arts: [
           'https://camo-v2.shikimori.one/?filename=haiyore!_nyaruko-san_1600x900_opai_160139.jpg&url=https://konachan.com/image/726c79d691a63da61fa53cab1234dfc2/Konachan.com%20-%20160139%20chibi%20green_eyes%20haiyore%21_nyaruko-san%20kilias%20kuuko%20nyaruko%20skirt%20tagme%20thighhighs%20yasaka_mahiro.jpg',
           'https://camo-v2.shikimori.one/?filename=haiyore!_nyaruko-san_1168x2048_Raynare_3938118.jpg&url=https://danbooru.donmai.us/data/55553ed9822c06f050570ed3f57e65c1.jpg',
@@ -154,9 +161,9 @@ class Data extends Equatable{
           'https://camo-v2.shikimori.one/?filename=haiyore!_nyaruko-san_1480x1090_opai_133218.png&url=https://konachan.com/image/c3d133ae83d9e0d680e93ec19b4ee156/Konachan.com%20-%20133218%20green_eyes%20haiyore%21_nyaruko-san%20k10k%20long_hair%20nyaruko%20panties%20school_uniform%20striped_panties%20thighhighs%20underwear.png',
         ],
         genres: [
-          'Фантастика',
-          'Комедія',
-          'Пародія',
+          Genres.parody,
+          Genres.comedy,
+          Genres.fantasy,
         ],
       dubs: [
         haiyore1,
@@ -167,11 +174,12 @@ class Data extends Equatable{
     Anime wonderEgg = Anime(
         malId: 43299,
         title: 'Wonder Egg Priority',
-        alternativeTitles: <String, String>{
-          'en': 'Wonder Egg Priority',
-          'jp': 'ワンダーエッグ・プライオリティ',
-          'ua': 'Пріоритет диво-яйця'
-        },
+        // alternativeTitles: <String, List<String>>{
+        //   'en': ['Wonder Egg Priority'],
+        //   'jp': ['ワンダーエッグ・プライオリティ'],
+        //   'ua': ['Пріоритет диво-яйця'],
+        // },
+        alternativeTitles: [],
         mainPicture: "https://dere.shikimori.one/system/animes/original/43299.jpg",
         synopsis: "За настановою таємничого голосу під час північної прогулянки 14-річна дівчинка Ай Ото підбирає яйце. Голос вмовляє її: “Якщо хочеш змінити майбутнє, потрібно лише наважитись зробити вибір. Тепер повір у себе і розбий яйце”. ",
         startDate: DateTime(2021, 02, 13),
@@ -179,16 +187,17 @@ class Data extends Equatable{
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
         mediaType: 'tv',
-        status: 'currently_airing',
+        airing: true,
+        episodes: 24,
         arts: [
           'https://camo-v2.shikimori.one/?filename=wonder_egg_priority_3000x3000_Dreista_736922.png&url=https://files.yande.re/image/005149a1b7b3c10d28cc5f051dbd7588/yande.re%20736922%20aonuma_neiru%20dress%20heterochromia%20kawai_rika%20ohto_ai%20sawaki_momoe%20sweater%20wonder_egg_priority.png',
           'https://camo-v2.shikimori.one/?filename=wonder_egg_priority_822x848_feintnickolas_4326520.png&url=https://danbooru.donmai.us/data/7cf443e016d7276aacb2ef43210be401.png',
           'https://camo-v2.shikimori.one/?filename=wonder_egg_priority_1627x2300_Mysticus_4310211.jpg&url=https://danbooru.donmai.us/data/e27b16f18adcd30f63d54acfb42b1389.jpg',
         ],
         genres: [
-          'Психологічне',
-          'Драма',
-          'Фентезі',
+          Genres.psychological,
+          Genres.drama,
+          Genres.fantasy,
         ],
       dubs: []
       );
@@ -197,11 +206,12 @@ class Data extends Equatable{
     Anime biyori =  Anime(
             malId: 39808,
             title: 'Non Non Biyori Nonstop',
-            alternativeTitles: <String, String>{
-              'en': 'Non Non Biyori Nonstop',
-              'jp': 'のんのんびより のんすとっぷ',
-              'ua': 'Безтурботні часи: Нонстоп'
-            },
+            // alternativeTitles: <String, List<String>>{
+            //   'en': ['Non Non Biyori Nonstop'],
+            //   'jp': ['のんのんびより のんすとっぷ'],
+            //   'ua': ['Безтурботні часи: Нонстоп'],
+            // },
+            alternativeTitles: [],
             mainPicture: "https://dere.shikimori.one/system/animes/original/17549.jpg",
             synopsis: 'Третій сезон пригод дівчат із глибинки. ',
             startDate: DateTime(2021, 02, 11),
@@ -209,7 +219,8 @@ class Data extends Equatable{
             createdAt: DateTime.now(),
             updatedAt: DateTime.now(),
             mediaType: 'tv',
-            status: 'currently_airing',
+            airing: true,
+            episodes: 24,
             arts: [
               'https://camo-v2.shikimori.one/?filename=non_non_biyori_1920x1080_FormX_170601.jpg&url=https://konachan.com/image/5114f5c16bf63b624253e76eca3df8a5/Konachan.com%20-%20170601%20blue_eyes%20blue_hair%20boat%20brown_eyes%20brown_hair%20chipika%20clouds%20fang%20flute%20group%20hat%20instrument%20landscape%20lighthouse%20parody%20scenic%20skirt%20sky%20water.jpg',
               'https://camo-v2.shikimori.one/?filename=non_non_biyori_1448x2048_Soundtracker_3707574.jpg&url=https://danbooru.donmai.us/data/c63f39332208c2121e0aecdc4864241b.jpg',
@@ -220,10 +231,10 @@ class Data extends Equatable{
               'https://camo-v2.shikimori.one/?filename=non_non_biyori_4087x5798_drop_325729.jpg&url=https://files.yande.re/image/40674659ecc66093ca132f57edf71bff/yande.re%20325729%20furukawa_hideki%20ichijou_hotaru%20koshigaya_komari%20koshigaya_natsumi%20miyauchi_renge%20non_non_biyori%20yukata.jpg',
             ],
             genres: [
-              'Комедія',
-              'Школа',
-              'Сьонен',
-              'Повсякденність',
+              Genres.comedy,
+              Genres.school,
+              Genres.seinen,
+              Genres.sliceOfLife,
             ],
       dubs: []
     );
@@ -231,11 +242,12 @@ class Data extends Equatable{
     Anime horimiya =  Anime(
       malId: 42897,
       title: 'Horimiya',
-      alternativeTitles: <String, String>{
-        'en': 'Horimiya ',
-        'jp': 'ホリミヤ ',
-        'ua': 'Хорімія'
-      },
+        // alternativeTitles: <String, List<String>>{
+        //   'en': ['Horimiya'],
+        //   'jp': ['ホリミヤ'],
+        //   'ua': ['Хорімія'],
+        // },
+        alternativeTitles: [],
       mainPicture: "https://moe.shikimori.one/system/animes/original/42897.jpg",
       synopsis: 'Старшокласницею Кьоко Хорі захоплюються за її товариськість і здібності до навчання, однак вона приховує інший бік себе. Через те, що батьки дівчини часто затримуються на роботі, їй доводиться піклуватися про молодшого братика, а решту часу займає навчання, тому в неї не лишається шансів на спілкування з іншими поза стінами школи. Тим часом Ідзумі Міямуру сприймають як похмурого отаку в окулярах. Однак, насправді, він м’яка людина, не здатна вчитися. Ба більше, в нього 9 пірсингів, схованих за довгим волоссям і татуювання вздовж спини і лівого плеча. Випадково шляхи Хорі і Міямури перетинаються. Ці, здавалося б, протилежності стають друзями і показують одне одному свій потаємний бік. ',
       startDate: DateTime(2021, 02, 10),
@@ -243,7 +255,8 @@ class Data extends Equatable{
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
       mediaType: 'tv',
-      status: 'currently_airing',
+        airing: true,
+        episodes: 24,
       arts: [
         'https://camo-v2.shikimori.one/?filename=horimiya_912x1117_pikuchan_1640473.png&url=https://cdn.donmai.us/original/c7/d1/c7d19a31f4e56f2a31b96106c0e92ad1.png',
         'https://camo-v2.shikimori.one/?filename=horimiya_2000x1050_pikuchan_1680605.jpg&url=https://cdn.donmai.us/original/88/5a/885aa2a9fd6d8f4a5897780236debcda.jpg',
@@ -254,11 +267,11 @@ class Data extends Equatable{
         'https://camo-v2.shikimori.one/?filename=horimiya_2960x3816_Mr_GT_739955.png&url=https://files.yande.re/image/db6c59d80e352a1c551cd9a6e6c14e4c/yande.re%20739955%20hori-san_to_miyamura-kun%20hori_kyouko%20kanniiepan%20miyamura_izumi%20seifuku%20skirt_lift%20sweater.png',
       ],
       genres: [
-        'Повсякденність',
-        'Комедія',
-        'Романтика',
-        'Школа',
-        'Cенен',
+        Genres.sliceOfLife,
+        Genres.comedy,
+        Genres.romance,
+        Genres.school,
+        Genres.seinen
       ],
       dubs: []
     );
@@ -266,24 +279,26 @@ class Data extends Equatable{
     Anime sky =  Anime(
       malId: 39569,
       title: 'Sora no Aosa wo Shiru Hito yo ',
-      alternativeTitles: <String, String>{
-        'en': 'Her Blue Sky',
-        'jp': '空の青さを知る人よ  ',
-        'ua': 'Вона пізнала неба блакить'
-      },
-      mainPicture: "https://cdn.myanimelist.net/images/anime/1468/102527.jpg",
+        // alternativeTitles: <String, List<String>>{
+        //   'en': ['Her Blue Sky'],
+        //   'jp': ['空の青さを知る人よ'],
+        //   'ua': ['Вона пізнала неба блакить'],
+        // },
+        alternativeTitles: [],
+        mainPicture: "https://cdn.myanimelist.net/images/anime/1468/102527.jpg",
       synopsis: 'Аой Айой ходить до старшої школи та живе разом зі старшою сестрою Акане. Вони живуть самі після трагічної події, що забрала їх батьків 13 років тому. Відтоді Акане піклується про молодшу сестру самотужки, тому після закінчення школи Аой збирається поїхати до Токіо, щоб полегшити життя своїй сестрі та побудувати музичну кар\'єру, на яку її надихнув колишній хлопець Акане - Шінносуке "Шінно" Канамуро. Шінно був частиною місцевої групи до тих пір, поки не поїхав до Токіо, щоб стати професійним гітаристом. ',
       startDate: DateTime(2019, 11, 11),
       endDate: DateTime(2050, 11, 11),
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
       mediaType: 'movie',
-      status: 'finished_airing',
+        airing: true,
+        episodes: 24,
       arts: [
         'https://pbs.twimg.com/media/EgWgLGkXsAMH_5t.jpg'
       ],
       genres: [
-        'Драма',
+        Genres.drama,
       ],
       dubs: []
     );

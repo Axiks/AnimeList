@@ -21,6 +21,7 @@ class GalleryScreen extends StatelessWidget {
       while(i < anime_arts_list.length) {
         arts.add(Art(
           index: i,
+          href: anime_arts_list[i],
           anime: anime
         ));
         i++;
@@ -44,7 +45,7 @@ class GalleryScreen extends StatelessWidget {
                               child: FittedBox(
                                 fit: BoxFit.cover,
                                 child: CachedNetworkImage(
-                                  imageUrl: arts[index].getImgUrl(),
+                                  imageUrl: arts[index].href,
                                   placeholder: (context, url) => Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Center(child: CircularProgressIndicator(
