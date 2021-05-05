@@ -1,4 +1,6 @@
 import 'package:anime_list_app/models/anime.dart';
+import 'package:anime_list_app/models/connectors/alternative/alternativeTitleDescription.dart';
+import 'package:anime_list_app/models/connectors/alternative/alternativeTitleName.dart';
 import 'package:anime_list_app/models/genres.dart';
 import 'package:built_collection/src/list.dart';
 import 'package:intl/intl.dart';
@@ -47,10 +49,36 @@ class MyAnimeListRep{
     var jikan = japi.Jikan();
     var result = await jikan.getAnimeInfo(id);
 
-    Map<String, List<String>> altTitles = {
-      'eng': [result.titleEnglish],
-      'jp': [result.titleJapanese]
-    };
+    List<AlternativeName> altTitles = [];
+    AlternativeName altEng = AlternativeName(
+      animeId: result.malId,
+      lang: "eng",
+      body: result.titleEnglish,
+      source: "MAL",
+      primary: true,
+      createdAt: DateTime.now()
+    );
+    altTitles.add(altEng);
+    AlternativeName altJp = AlternativeName(
+        animeId: result.malId,
+        lang: "jp",
+        body: result.titleJapanese,
+        source: "MAL",
+        primary: true,
+        createdAt: DateTime.now()
+    );
+    altTitles.add(altJp);
+
+    List<AlternativeDescription> alternativeSynopsis = [];
+    alternativeSynopsis.add(AlternativeDescription(
+        animeId: result.malId,
+        lang: "eng",
+        body: result.synopsis,
+        source: "MAL",
+        primary: true,
+        createdAt: DateTime.now()
+    ));
+
     DateTime dtStart = DateTime.utc(1900, 1, 1);
     DateTime dtEnd = DateTime.utc(1900, 1, 1);
     BuiltList<japi.GenericInfo> g =  result.genres;
@@ -76,6 +104,7 @@ class MyAnimeListRep{
       malId: result.malId,
       title: result.title,
       alternativeTitles: altTitles,
+      alternativeSynopsis: alternativeSynopsis,
       synopsis: result.synopsis,
       mainPicture: result.imageUrl,
       airing: result.airing,

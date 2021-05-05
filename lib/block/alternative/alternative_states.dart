@@ -29,17 +29,17 @@ class AlternativeAdded extends AlternativeState {
   List<Object> get props => [success];
 }
 
-class AlternativeGet extends AlternativeState {
-  final AlternativeTitle alternativeTitle;
+class AlternativeGeted extends AlternativeState {
+  final List<AlternativeTitle> alternativeTitle;
 
-  const AlternativeGet({
+  const AlternativeGeted({
     required this.alternativeTitle,
   });
 
-  AlternativeGet copyWith({
-    bool? success
+  AlternativeGeted copyWith({
+    List<AlternativeTitle>? alternativeTitle
   }) {
-    return AlternativeGet(
+    return AlternativeGeted(
       alternativeTitle: alternativeTitle ?? this.alternativeTitle,
     );
   }
@@ -48,17 +48,17 @@ class AlternativeGet extends AlternativeState {
   List<Object> get props => [alternativeTitle];
 }
 
-class AlternativeDelete extends AlternativeState {
+class AlternativeDeleted extends AlternativeState {
   final bool success;
 
-  const AlternativeDelete({
+  const AlternativeDeleted({
     required this.success,
   });
 
-  AlternativeDelete copyWith({
+  AlternativeDeleted copyWith({
     bool? success
   }) {
-    return AlternativeDelete(
+    return AlternativeDeleted(
       success: success ?? this.success,
     );
   }

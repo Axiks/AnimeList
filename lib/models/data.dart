@@ -66,12 +66,13 @@ class Data extends Equatable{
     Anime reZero = Anime(
       malId: 31240,
       title: 'Re:Zero kara Hajimeru Isekai Seikatsu',
-      alternativeTitles: <String, List<String>>{
-        'en': ['Re:ZERO -Starting Life in Another World-'],
-        'jp': ['Re：ゼロから始める異世界生活'],
-        'ua': ['Переродження: Життя з нуля в іншому світі'],
-      },
-      mainPicture: "https://nyaa.shikimori.one/system/animes/original/31240.jpg",
+      // alternativeTitles: <String, List<String>>{
+      //   'en': ['Re:ZERO -Starting Life in Another World-'],
+      //   'jp': ['Re：ゼロから始める異世界生活'],
+      //   'ua': ['Переродження: Життя з нуля в іншому світі'],
+      // },
+        alternativeTitles: [],
+        mainPicture: "https://nyaa.shikimori.one/system/animes/original/31240.jpg",
       synopsis: "Продовження другого сезону пригод потраплянця, який хоче врятувати всіх за будь-яку ціну. Мешканці маєтку Розвааля досі ув'язнені в так званому Святилищі, а нашим героям протистоїть воля старовинної книги. Емілія досі намагається пройти випробування, аби звільнити всіх, але відкриваються все нові сюжетні повороти, які як тільки можуть ускладнюють життя нашим героям. ",
       startDate: DateTime(2016, 04, 04),
       endDate: DateTime(2016, 12, 28),
@@ -133,11 +134,12 @@ class Data extends Equatable{
     Anime haiyore = Anime(
         malId: 11785,
         title: 'Haiyore! Nyaruko-san',
-        alternativeTitles: <String, List<String>>{
-          'en': ['Haiyore! Nyaruko-san'],
-          'jp': ['這いよれ！ニャル子さん'],
-          'ua': ['Повзучий Хаос! Ньяруко '],
-        },
+        // alternativeTitles: <String, List<String>>{
+        //   'en': ['Haiyore! Nyaruko-san'],
+        //   'jp': ['這いよれ！ニャル子さん'],
+        //   'ua': ['Повзучий Хаос! Ньяруко '],
+        // },
+        alternativeTitles: [],
         mainPicture: "https://nyaa.shikimori.one/system/animes/original/11785.jpg",
         synopsis: "Чи є людство єдиною розумно расою у всесвіті? Що ховає від нас холодна безодня космічного простору? Чи може прибульці вже тут і ховаються в тінях, виконуючи свої справи? Люди вигадали багато варіантів відповідей, багато теорій. Але, реальність виявилася іншою, ближчою до творчості Лавкрафта. Ясака Махіро, звичайний хлопець з холодним розумом та логічним мисленням, однієї ночі стає жертвою спроби викрадення прибульцями для їхніх сумнівних цілей. Чи може він вижити, зберігши психічне здоров'я і яке місце займає Земля у всесвіті? Так чи інакше, тепер йому доведеться жити з таємничою дівчиною, чия екстравагантна поведінка призведе до багатьох особливих ситуацій, і яку він постійно тикає виделкою.",
         startDate: DateTime(2012, 05, 10),
@@ -172,11 +174,12 @@ class Data extends Equatable{
     Anime wonderEgg = Anime(
         malId: 43299,
         title: 'Wonder Egg Priority',
-        alternativeTitles: <String, List<String>>{
-          'en': ['Wonder Egg Priority'],
-          'jp': ['ワンダーエッグ・プライオリティ'],
-          'ua': ['Пріоритет диво-яйця'],
-        },
+        // alternativeTitles: <String, List<String>>{
+        //   'en': ['Wonder Egg Priority'],
+        //   'jp': ['ワンダーエッグ・プライオリティ'],
+        //   'ua': ['Пріоритет диво-яйця'],
+        // },
+        alternativeTitles: [],
         mainPicture: "https://dere.shikimori.one/system/animes/original/43299.jpg",
         synopsis: "За настановою таємничого голосу під час північної прогулянки 14-річна дівчинка Ай Ото підбирає яйце. Голос вмовляє її: “Якщо хочеш змінити майбутнє, потрібно лише наважитись зробити вибір. Тепер повір у себе і розбий яйце”. ",
         startDate: DateTime(2021, 02, 13),
@@ -203,11 +206,12 @@ class Data extends Equatable{
     Anime biyori =  Anime(
             malId: 39808,
             title: 'Non Non Biyori Nonstop',
-            alternativeTitles: <String, List<String>>{
-              'en': ['Non Non Biyori Nonstop'],
-              'jp': ['のんのんびより のんすとっぷ'],
-              'ua': ['Безтурботні часи: Нонстоп'],
-            },
+            // alternativeTitles: <String, List<String>>{
+            //   'en': ['Non Non Biyori Nonstop'],
+            //   'jp': ['のんのんびより のんすとっぷ'],
+            //   'ua': ['Безтурботні часи: Нонстоп'],
+            // },
+            alternativeTitles: [],
             mainPicture: "https://dere.shikimori.one/system/animes/original/17549.jpg",
             synopsis: 'Третій сезон пригод дівчат із глибинки. ',
             startDate: DateTime(2021, 02, 11),
@@ -238,11 +242,12 @@ class Data extends Equatable{
     Anime horimiya =  Anime(
       malId: 42897,
       title: 'Horimiya',
-        alternativeTitles: <String, List<String>>{
-          'en': ['Horimiya'],
-          'jp': ['ホリミヤ'],
-          'ua': ['Хорімія'],
-        },
+        // alternativeTitles: <String, List<String>>{
+        //   'en': ['Horimiya'],
+        //   'jp': ['ホリミヤ'],
+        //   'ua': ['Хорімія'],
+        // },
+        alternativeTitles: [],
       mainPicture: "https://moe.shikimori.one/system/animes/original/42897.jpg",
       synopsis: 'Старшокласницею Кьоко Хорі захоплюються за її товариськість і здібності до навчання, однак вона приховує інший бік себе. Через те, що батьки дівчини часто затримуються на роботі, їй доводиться піклуватися про молодшого братика, а решту часу займає навчання, тому в неї не лишається шансів на спілкування з іншими поза стінами школи. Тим часом Ідзумі Міямуру сприймають як похмурого отаку в окулярах. Однак, насправді, він м’яка людина, не здатна вчитися. Ба більше, в нього 9 пірсингів, схованих за довгим волоссям і татуювання вздовж спини і лівого плеча. Випадково шляхи Хорі і Міямури перетинаються. Ці, здавалося б, протилежності стають друзями і показують одне одному свій потаємний бік. ',
       startDate: DateTime(2021, 02, 10),
@@ -274,12 +279,13 @@ class Data extends Equatable{
     Anime sky =  Anime(
       malId: 39569,
       title: 'Sora no Aosa wo Shiru Hito yo ',
-        alternativeTitles: <String, List<String>>{
-          'en': ['Her Blue Sky'],
-          'jp': ['空の青さを知る人よ'],
-          'ua': ['Вона пізнала неба блакить'],
-        },
-      mainPicture: "https://cdn.myanimelist.net/images/anime/1468/102527.jpg",
+        // alternativeTitles: <String, List<String>>{
+        //   'en': ['Her Blue Sky'],
+        //   'jp': ['空の青さを知る人よ'],
+        //   'ua': ['Вона пізнала неба блакить'],
+        // },
+        alternativeTitles: [],
+        mainPicture: "https://cdn.myanimelist.net/images/anime/1468/102527.jpg",
       synopsis: 'Аой Айой ходить до старшої школи та живе разом зі старшою сестрою Акане. Вони живуть самі після трагічної події, що забрала їх батьків 13 років тому. Відтоді Акане піклується про молодшу сестру самотужки, тому після закінчення школи Аой збирається поїхати до Токіо, щоб полегшити життя своїй сестрі та побудувати музичну кар\'єру, на яку її надихнув колишній хлопець Акане - Шінносуке "Шінно" Канамуро. Шінно був частиною місцевої групи до тих пір, поки не поїхав до Токіо, щоб стати професійним гітаристом. ',
       startDate: DateTime(2019, 11, 11),
       endDate: DateTime(2050, 11, 11),

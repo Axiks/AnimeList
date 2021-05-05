@@ -68,8 +68,10 @@ class DBProvider {
               "${AlternativeTitleFiels.animeId} INTEGER NOT NULL,"
               "${AlternativeTitleFiels.userId} INTEGER NOT NULL,"
               "${AlternativeTitleFiels.lang} TEXT NOT NULL,"
-              "${AlternativeTitleFiels.body} TEXT NOT NULL"
-              "${AlternativeTitleFiels.createdAt} TEXT NOT NULL,"
+              "${AlternativeTitleFiels.body} TEXT NOT NULL,"
+              "${AlternativeTitleFiels.source} TEXT NOT NULL,"
+              "${AlternativeTitleFiels.primary} INTEGER NOT NULL,"
+              "${AlternativeTitleFiels.createdAt} TEXT NOT NULL"
               ")");
 
           //Alternative Title Name
@@ -78,8 +80,10 @@ class DBProvider {
               "${AlternativeTitleFiels.animeId} INTEGER NOT NULL,"
               "${AlternativeTitleFiels.userId} INTEGER NOT NULL,"
               "${AlternativeTitleFiels.lang} TEXT NOT NULL,"
-              "${AlternativeTitleFiels.body} TEXT NOT NULL"
-              "${AlternativeTitleFiels.createdAt} TEXT NOT NULL,"
+              "${AlternativeTitleFiels.body} TEXT NOT NULL,"
+              "${AlternativeTitleFiels.source} TEXT NOT NULL,"
+              "${AlternativeTitleFiels.primary} INTEGER NOT NULL,"
+              "${AlternativeTitleFiels.createdAt} TEXT NOT NULL"
               ")");
 
           //Dubs

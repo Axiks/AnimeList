@@ -18,10 +18,20 @@ class AlternativeAdd extends AlternativeEvent {
   List<Object> get props => [alternativeTitle];
 }
 
-class AlternativeGet extends AlternativeEvent {
+class AlternativeGetName extends AlternativeEvent {
   final int animeId;
 
-  const AlternativeGet(this.animeId);
+  const AlternativeGetName(this.animeId);
+
+  @override
+  // TODO: implement props
+  List<Object> get props => [animeId];
+}
+
+class AlternativeGetDescription extends AlternativeEvent {
+  final int animeId;
+
+  const AlternativeGetDescription(this.animeId);
 
   @override
   // TODO: implement props

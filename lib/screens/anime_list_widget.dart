@@ -1,6 +1,7 @@
 import 'package:anime_list_app/models/anime.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:collection/collection.dart';
 
 class AnimesListWidget extends StatelessWidget {
   final List<Anime> animes;
@@ -41,7 +42,8 @@ class AnimesListWidget extends StatelessWidget {
                     children: [
                       Container(
                           child: Text(
-                          animes[index].alternativeTitles['ua']?.first.toString() ?? animes[index].title,
+                            animes[index].alternativeTitles.firstWhereOrNull((element) => element.lang == "ua")?.body ?? animes[index].title,
+                            //animes[index].alternativeTitles.firstWhere((name) => name?.lang == 'ua')?.body ?? "nima",
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: new TextStyle(
@@ -57,7 +59,7 @@ class AnimesListWidget extends StatelessWidget {
                       ),
                       Container(
                           child: Text(
-                              animes[index].alternativeTitles['eng']?.first.toString() ?? "",
+                            animes[index].alternativeTitles.firstWhereOrNull((element) => element.lang == "eng")?.body ?? "null",
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: new TextStyle(

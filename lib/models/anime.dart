@@ -1,5 +1,7 @@
+import 'package:anime_list_app/models/connectors/alternative/alternativeTitleDescription.dart';
 import 'package:anime_list_app/models/genres.dart';
 import 'package:equatable/equatable.dart';
+import 'connectors/alternative/alternativeTitleName.dart';
 import 'dub.dart';
 
 final String tableAnime = 'anime';
@@ -22,7 +24,8 @@ class AnimeFiels{
 class Anime extends Equatable{
   final int malId;
   final String title;
-  final Map<String, List<String>> alternativeTitles;
+  final List<AlternativeName> alternativeTitles;
+  final List<AlternativeDescription> alternativeSynopsis;
   final String mainPicture;
   final DateTime startDate;
   final DateTime endDate;
@@ -39,7 +42,8 @@ class Anime extends Equatable{
   const Anime({
     required  this.malId,
     required this.title,
-    this.alternativeTitles = const {},
+    this.alternativeTitles = const [],
+    this.alternativeSynopsis = const [],
     required this.mainPicture,
     required this.startDate,
     required this.endDate,
@@ -59,6 +63,7 @@ class Anime extends Equatable{
     malId,
     title,
     alternativeTitles,
+    alternativeSynopsis,
     mainPicture,
     startDate,
     endDate,
@@ -107,7 +112,8 @@ class Anime extends Equatable{
   Anime copy({
     int? malId,
     String? title,
-    Map<String, List<String>>? alternativeTitles,
+    List<AlternativeName>? alternativeTitles,
+    List<AlternativeDescription>? alternativeSynopsis,
     String? mainPicture,
     DateTime? startDate,
     DateTime? endDate,
@@ -124,6 +130,7 @@ class Anime extends Equatable{
       malId: malId ?? this.malId,
       title: title ?? this.title,
       alternativeTitles: alternativeTitles ?? this.alternativeTitles,
+      alternativeSynopsis: alternativeSynopsis ?? this.alternativeSynopsis,
       mainPicture: mainPicture ?? this.mainPicture,
       startDate: startDate ?? this.startDate,
       endDate: endDate ?? this.endDate,

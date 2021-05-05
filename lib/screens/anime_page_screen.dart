@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:anime_list_app/block/anime/anime_block.dart';
 import 'package:anime_list_app/block/anime/anime_event.dart';
 import 'package:anime_list_app/block/anime/anime_states.dart';
@@ -15,6 +17,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:collection/collection.dart';
+
 
 
 class AnimePageScreen extends StatelessWidget {
@@ -79,16 +83,36 @@ class AnimeBlocEngineWidget extends StatelessWidget {
                     stretch: true,
                     flexibleSpace: FlexibleSpaceBar(
                       background: Visibility(
-                        child: FittedBox(
-                          child: CachedNetworkImage(
-                            imageUrl: anime.mainPicture,
-                            placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                            errorWidget: (context, url, error) => Icon(Icons.error),
+                        child: SizedBox(
+                          height: 200,
+                          child: Stack(
+                            fit: StackFit.expand,
+                            children: [
+                              FittedBox(
+                                  child: CachedNetworkImage(
+                                  imageUrl: anime.mainPicture,
+                                  placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                                  errorWidget: (context, url, error) => Icon(Icons.error),
+                                ),
+                                fit: BoxFit.fitWidth,
+                              ),
+                              ClipRRect( // Clip it cleanly.
+                                child: BackdropFilter(
+                                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                                  child: Container(
+                                    color: Colors.black.withOpacity(0.2),
+                                    alignment: Alignment.center,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                          fit: BoxFit.fitWidth,
                         ),
+
                       ),
-                      title: Text(anime.alternativeTitles['ua']?.first.toString() ?? anime.title),
+                      title: Text(
+                        anime.alternativeTitles.firstWhereOrNull((element) => element.lang == "ua")?.body ?? anime.alternativeTitles.firstWhereOrNull((element) => element.lang == "eng")?.body ?? "",
+                      ),
                       stretchModes: [
                         StretchMode.zoomBackground,
                         StretchMode.blurBackground,
@@ -168,7 +192,8 @@ class HeadWidget extends StatelessWidget {
               imageUrl: anime.mainPicture,
               placeholder: (context, url) => Center(child: CircularProgressIndicator()),
               errorWidget: (context, url, error) => Icon(Icons.error),
-            ),          ),
+            ),
+          ),
         ),
         Expanded(
           flex: 7, // 60%
@@ -178,7 +203,7 @@ class HeadWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  anime.alternativeTitles['ua']?.first.toString() ??  anime.title,
+                  anime.alternativeTitles.firstWhereOrNull((element) => element.lang == "ua")?.body ?? anime.alternativeTitles.firstWhereOrNull((element) => element.lang == "eng")?.body ?? "",
                   style: new TextStyle(
                     fontSize: 14.0,
                     fontFamily: 'Roboto',
@@ -191,28 +216,28 @@ class HeadWidget extends StatelessWidget {
                 ),
                 Visibility(
                   child: Text(
-                      anime.alternativeTitles['en']?.first.toString() ?? "",
+                    anime.alternativeTitles.firstWhereOrNull((element) => element.lang == "eng")?.body ?? "null",
                       style: new TextStyle(
                         fontSize: 11.0,
                         fontFamily: 'Roboto',
                         color: new Color(0xFF7C7C7C),
                       ),
                   ),
-                  visible: anime.alternativeTitles['ua']?.first.isNotEmpty ?? false,
+                  visible: anime.alternativeTitles.firstWhereOrNull((element) => element.lang == "ua")?.body.isNotEmpty ?? false,
                 ),
                 SizedBox(
                   height: 2,
                 ),
                 Visibility(
                   child: Text(
-                    anime.alternativeTitles['jp']?.first.toString() ?? "",
+                    anime.alternativeTitles.firstWhereOrNull((element) => element.lang == "jp")?.body ?? "null",
                     style: new TextStyle(
                       fontSize: 11.0,
                       fontFamily: 'Roboto',
                       color: new Color(0xFF7C7C7C),
                     ),
                   ),
-                  visible: anime.alternativeTitles['jp']?.first.isNotEmpty ?? false,
+                  visible: anime.alternativeTitles.firstWhereOrNull((element) => element.lang == "jp")?.body.isNotEmpty ?? false,
                 ),
                 SizedBox(
                   height: 6,
@@ -442,7 +467,7 @@ class DubWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Text(
-                              anime.alternativeTitles['ua']?.first.toString() ?? "",
+                              anime.alternativeTitles.firstWhere((name) => name.lang == 'ua').body,
                               style: new TextStyle(
                                 fontSize: 14.0,
                                 fontFamily: 'Roboto',

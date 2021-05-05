@@ -189,7 +189,8 @@ class _AnimeSearchBarState extends State<AnimeSearchBar> {
                                     children: [
                                       Container(
                                           child: Text(
-                                            anime.alternativeTitles['ua']?.first.toString() ?? anime.title,
+                                            //anime.alternativeTitles.firstWhereOrNull((element) => element.lang == "jp")?.body ?? "null",
+                                            anime.title,
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                             style: new TextStyle(
@@ -197,21 +198,6 @@ class _AnimeSearchBarState extends State<AnimeSearchBar> {
                                               fontFamily: 'Roboto',
                                               color: new Color(0xFF212121),
                                               fontWeight: FontWeight.bold,
-                                            ),
-                                          )
-                                      ),
-                                      SizedBox(
-                                        height: 2,
-                                      ),
-                                      Container(
-                                          child: Text(
-                                              anime.alternativeTitles['en']?.first.toString() ?? "",
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: new TextStyle(
-                                              fontSize: 11.0,
-                                              fontFamily: 'Roboto',
-                                              color: new Color(0xFF7C7C7C),
                                             ),
                                           )
                                       ),

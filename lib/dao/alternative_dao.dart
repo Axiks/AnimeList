@@ -26,6 +26,7 @@ class AlternativeDao{
     List<AlternativeName> answer = result.isNotEmpty
         ? result.map((item) => AlternativeName.fromDatabaseJson(item)).toList()
         : [];
+    print("getAlternativeName/List: " + answer.toString());
     return answer;
   }
 
@@ -55,7 +56,9 @@ class AlternativeDao{
     else{
       return false;
     }
+    print("addAlternative: " + altTitleItem.toString());
     int id = await db.insert(_tableName, altTitleItem.toJson());
+    print("Id: " + id.toString());
     bool status = false;
     if (id > 0){
       status = true;

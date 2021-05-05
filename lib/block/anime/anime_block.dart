@@ -40,7 +40,7 @@ class AnimeBlock extends Bloc<AnimeEvent, AnimeState> {
   }
 
   Stream<AnimeSuccess> _mapAnmeGetAllToState() async* {
-    List<Anime> animes = await AnimeDao().getAllAnime();
+    List<Anime> animes = await AnimeRepository().animeGetAll();
     AnimeSuccess state = AnimeSuccessTrue(anime: animes);
     yield state;
   }
